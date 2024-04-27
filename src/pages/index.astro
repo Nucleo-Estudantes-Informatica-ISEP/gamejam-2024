@@ -5,12 +5,15 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero';
 
 import Footer from '../components/Footer.astro';
-
+import Loading from '../components/Timer/Loading';
 ---
 
-<Layout title="Gamejam 2024">
-  <Hero client:only />
-</Layout>
-<Container>
-</Container>
-<Footer />
+<section class="bg-bg-image bg-cover bg-center bg-fixed">
+  <Layout title=" Gamejam 2024">
+    <Hero client:only />
+  </Layout>
+  <Container>
+    <Loading title="Time is running out!" day={24} month={5} year={2024} client:load />
+  </Container>
+  <Footer />
+</section>

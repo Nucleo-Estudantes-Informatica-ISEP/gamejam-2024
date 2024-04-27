@@ -10,9 +10,8 @@ const Hero: React.FC = () => {
   const opacity = useTransform(scrollYProgress, input, opacityOutput);
 
   return (
-    <main className="bg-background min-h-screen">
+    <main className="min-h-screen">
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <HeroParticles className="fixed h-screen w-screen" />
         <motion.div
           className="w-full flex items-center justify-center h-full fixed select-none"
           style={{ opacity }}>
