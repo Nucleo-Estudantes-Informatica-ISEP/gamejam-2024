@@ -1,0 +1,77 @@
+---
+import { Icon } from 'astro-icon';
+
+const currentYear = new Date().getFullYear();
+const NEI_WEBSITE_URL = 'https://nei-isep.org';
+const LAST_EDITION_URL = 'https://gamejam2022.nei-isep.org/';
+---
+
+<footer
+  class="flex items-center justify-center flex-col text-center bg-background w-5/6 mx-auto z-10"
+>
+  <div class="flex justify-center drop-shadow-lg lg:my-8 z-10">
+    <a
+      href={LAST_EDITION_URL}
+      target="_blank"
+      rel="noreferrer"
+      class="rounded-3xl border-[5px] border-1 border-white px-6 md:px-8 py-4 md:py-6 font-misterPixel uppercase text-2xl text-white drop-shadow-3xl transition-all duration-300 my-12 md:my-10 w-max hover:scale-105 hover:drop-shadow-[1px_1px_7px_rgb(255,0,255)] lg:text-5xl"
+    >
+      Edição Anterior
+    </a>
+  </div>
+
+  <div class="mb-8 flex items-center justify-center z-10">
+    <div
+      class="max-h-[200px] max-w-[350px] transition-all duration-300 hover:scale-105 hover:drop-shadow-[1px_1px_10px_rgb(0,255,255)]"
+    >
+      <a href={NEI_WEBSITE_URL} target="_blank" rel="noreferrer">
+        <img
+          class="mx-auto block h-auto max-w-full drop-shadow-3xl transition-all duration-300 hover:drop-shadow-4xl"
+          src="/nei-logo.png"
+          alt="Logo branco do Núcleo de Estudantes de Informática do ISEP (NEI)"
+        />
+      </a>
+    </div>
+  </div>
+
+  <div class="my-8 flex items-center justify-center gap-14 lg:gap-20 z-10">
+    <a
+      class="drop-shadow-3xl transition-all duration-300 hover:scale-110 hover:drop-shadow-4xl text-white hover:drop-shadow-[0px_0px_15px_rgb(0,100,255)]"
+      href="https://www.facebook.com/nei.isep"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Icon pack="bi" name="facebook" size={30} />
+    </a>
+    <a
+      class="drop-shadow-3xl transition-all duration-300 hover:scale-110 hover:drop-shadow-4xl text-white hover:drop-shadow-[0px_0px_15px_rgb(29,161,242)]"
+      href="https://twitter.com/nei_isep"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Icon pack="bi" name="twitter" size={30} />
+    </a>
+    <a
+      class="drop-shadow-3xl transition-all duration-300 hover:scale-110 hover:drop-shadow-4xl text-white hover:drop-shadow-[0px_0px_20px_rgb(255,0,100)]"
+      href="https://www.instagram.com/nei_isep"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Icon pack="bi" name="instagram" size={30} />
+    </a>
+    <a
+      class="drop-shadow-3xl transition-all duration-300 hover:scale-110 hover:drop-shadow-4xl text-white hover:drop-shadow-[0px_0px_15px_rgb(14,118,168)]"
+      href="https://www.linkedin.com/company/nei-isep"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Icon pack="bi" name="linkedin" size={30} />
+    </a>
+  </div>
+
+  <h4
+    class="select-none py-6 text-center font-misterPixel uppercase text-md md:text-xl text-white drop-shadow-3xl z-10"
+  >
+    Copyright &copy; {currentYear} NEI-ISEP. All rights reserved.
+  </h4>
+</footer>
