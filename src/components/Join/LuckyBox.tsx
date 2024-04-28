@@ -36,14 +36,14 @@ const LuckyBox: React.FC = () => {
   return (
     <div className="relative">
       <motion.img
-        className="h-16 w-16 lg:h-24 lg:w-24 brightness-90 cursor-pointer duration-100"
+        className="h-16 w-16 lg:h-24 lg:w-24 brightness-90 cursor-pointer duration-100 aspect-square"
         src={isCollected ? '/collected-luckybox.png' : '/luckybox.gif'}
         alt="Lucky Box"
         onClick={handleClick}
         animate={boxControls}
       />
       <motion.img
-        className="h-16 w-16 lg:h-24 lg:w-24 brightness-90 cursor-pointer duration-100 absolute top-0 -z-10"
+        className="h-16 w-16 lg:h-24 lg:w-24 brightness-90 cursor-pointer duration-100 absolute top-0 -z-10 aspect-square"
         src="/coin.gif"
         alt="Coin"
         animate={coinControls}
