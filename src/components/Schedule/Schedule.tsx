@@ -13,7 +13,7 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
   const isActiveDay = (day: number) => day == activeDay;
 
   const activeDayButtonStyles = (id: number) =>
-    ` ${isActiveDay(id) ? 'bg-primary' : 'bg-gray-500'}`;
+    ` ${isActiveDay(id) ? 'bg-[#50a32d]' : 'bg-[#4f99c8]'}`;
 
   const getActiveDayEvents = () => {
     return SCHEDULE.filter((day) => day.id === activeDay)[0].events;

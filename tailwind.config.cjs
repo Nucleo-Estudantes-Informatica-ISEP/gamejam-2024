@@ -48,7 +48,7 @@ module.exports = {
         buttonShadowHover: '3px 3px 15px #B567DC'
       },
       backgroundImage: {
-        'bg-image': ['url("/v2supermario.png")'],
+        'bg-image': ['url("/background.png")'],
       }
     }
   },
