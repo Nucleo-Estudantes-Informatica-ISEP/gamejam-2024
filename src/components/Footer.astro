@@ -1,12 +1,13 @@
 ---
 import { Icon } from 'astro-icon';
+import Mario from './Mario.astro';
 
 const currentYear = new Date().getFullYear();
 const NEI_WEBSITE_URL = 'https://nei-isep.org';
 const LAST_EDITION_URL = 'https://gamejam2023.nei-isep.org/';
 ---
 
-<footer class="flex items-center justify-center flex-col text-center w-5/6 mx-auto z-10">
+<footer class="flex items-center justify-center flex-col text-center mx-auto px-4 z-10 relative">
   <div class="flex justify-center drop-shadow-lg lg:my-8 z-10">
     <a
       href={LAST_EDITION_URL}
@@ -72,4 +73,5 @@ const LAST_EDITION_URL = 'https://gamejam2023.nei-isep.org/';
   >
     Copyright &copy; {currentYear} NEI-ISEP. All rights reserved.
   </h4>
+  <Mario />
 </footer>
