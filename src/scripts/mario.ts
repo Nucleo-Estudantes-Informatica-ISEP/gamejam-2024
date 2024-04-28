@@ -112,7 +112,11 @@ const render = () => {
   mario.style.left = `${player.pos.x}px`;
   mario.style.bottom = `${player.pos.y}px`;
   mario.style.transform = `scale(${player.direction}, 1)`;
-  mario.src = player.isOnGround ? '/mario.png' : '/mario-jumping.png';
+  mario.src = player.isOnGround
+    ? player.isMoving
+      ? '/mario-running.gif'
+      : '/mario.png'
+    : '/mario-jumping.png';
 };
 
 const gameloop = (lastframe?: number) => {
