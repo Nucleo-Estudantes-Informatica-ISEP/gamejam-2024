@@ -12,7 +12,7 @@ const player = {
   direction: 1,
   jumping: false,
   duck: false,
-  speed: 1
+  speed: 0.4
 };
 
 const inputState = {
