@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 
 import Footer from '../components/Footer.astro';
 import Loading from '../components/Timer/Loading';
+import ComingSoon from '../components/Countdown/ComingSoon.astro';
 ---
 
 <section class="bg-bg-image bg-cover bg-center bg-fixed">
@@ -13,7 +14,7 @@ import Loading from '../components/Timer/Loading';
     <Hero client:only />
   </Layout>
   <Container>
-    <Loading title="Time is running out!" day={24} month={5} year={2024} client:load />
+    <ComingSoon />
   </Container>
   <Footer />
 </section>
