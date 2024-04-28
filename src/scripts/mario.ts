@@ -1,19 +1,29 @@
-const mario = document.getElementById('mario');
+const mario = document.getElementById('mario') as HTMLImageElement;
 
 const player = {
   size: {
-    width: mario!.clientWidth,
-    height: mario!.clientHeight
+    width: mario.clientWidth,
+    height: mario.clientHeight
   },
   pos: {
     x: 0,
-    y: window.innerHeight - mario!.clientHeight
+    y: 0
   },
   direction: 1,
-  jumping: false,
-  duck: false,
-  speed: 0.4
+  velocity: {
+    x: 0,
+    y: 0
+  },
+  accelY: 1,
+  isDucking: false,
+  isOnGround: true,
+  isJumping: false,
+  isMoving: false, // use velocity
+  speed: 0.35,
+  jumpPower: 15
 };
+
+const gravity = 0.03;
 
 const inputState = {
   up: false,
@@ -55,12 +65,15 @@ document.addEventListener('keydown', (e) => handleInput(e, true));
 document.addEventListener('keyup', (e) => handleInput(e, false));
 
 const update = (delta: number) => {
+  player.isMoving = false;
+
   if (inputState.left) {
     let posX = player.pos.x - player.speed * delta;
     if (posX < 0) posX = 0;
 
     player.pos.x = posX;
     player.direction = -1;
+    player.isMoving = true;
   }
 
   if (inputState.right) {
@@ -70,22 +83,36 @@ const update = (delta: number) => {
 
     player.pos.x = posX;
     player.direction = 1;
+    player.isMoving = true;
   }
 
-  if (inputState.up) {
-    if (!player.jumping) {
-    }
-    player.jumping = true;
-    // player.pos.y -= player.speed * delta;
-  } else {
-    player.jumping = false;
+  if (inputState.up && !player.isJumping) {
+    player.isJumping = true;
+    player.isOnGround = false;
+    player.velocity.y = player.jumpPower;
   }
+
+  if (!player.isOnGround) {
+    player.accelY -= gravity;
+    player.pos.y += player.velocity.y * player.accelY;
+  }
+
+  if (player.pos.y < 0) {
+    player.pos.y = 0;
+    player.accelY = 1;
+    player.isOnGround = true;
+  }
+
+  if (!inputState.up) player.isJumping = false;
+
+  player.isDucking = inputState.down;
 };
 
 const render = () => {
-  mario!.style.left = `${player.pos.x}px`;
-  mario!.style.top = `${player.pos.y}px`;
-  mario!.style.transform = `scale(${player.direction}, 1)`;
+  mario.style.left = `${player.pos.x}px`;
+  mario.style.bottom = `${player.pos.y}px`;
+  mario.style.transform = `scale(${player.direction}, 1)`;
+  mario.src = player.isOnGround ? '/mario.png' : '/mario-jumping.png';
 };
 
 const gameloop = (lastframe?: number) => {
