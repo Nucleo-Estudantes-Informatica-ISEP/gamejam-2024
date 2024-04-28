@@ -18,7 +18,8 @@ module.exports = {
         secondary: '#3b82f6',
         bronze: '#cd7f32',
         silver: '#c0c0c0',
-        gold: '#ffd700'
+        gold: '#ffd700',
+        red: '#d70014'
       },
       animation: {
         'bounce-slow': 'bounce 1.5s ease-in-out infinite',
@@ -48,7 +49,7 @@ module.exports = {
         buttonShadowHover: '3px 3px 15px #B567DC'
       },
       backgroundImage: {
-        'bg-image': ['url("/background.png")'],
+        'bg-image': ['url("/background.png")']
       }
     }
   },
