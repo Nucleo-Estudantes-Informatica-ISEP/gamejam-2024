@@ -20,7 +20,8 @@ const player = {
   isJumping: false,
   isMoving: false, // use velocity
   speed: 0.35,
-  jumpPower: 15
+  jumpPower: 15,
+  sprite: '/mario.png'
 };
 
 const gravity = 0.03;
@@ -106,17 +107,19 @@ const update = (delta: number) => {
   if (!inputState.up) player.isJumping = false;
 
   player.isDucking = inputState.down;
+
+  player.sprite = player.isOnGround
+    ? player.isMoving
+      ? '/mario-running.gif'
+      : '/mario.png'
+    : '/mario-jumping.png';
 };
 
 const render = () => {
   mario.style.left = `${player.pos.x}px`;
   mario.style.bottom = `${player.pos.y}px`;
   mario.style.transform = `scale(${player.direction}, 1)`;
-  mario.src = player.isOnGround
-    ? player.isMoving
-      ? '/mario-running.gif'
-      : '/mario.png'
-    : '/mario-jumping.png';
+  if (mario.src !== player.sprite) mario.src = player.sprite;
 };
 
 const gameloop = (lastframe?: number) => {
