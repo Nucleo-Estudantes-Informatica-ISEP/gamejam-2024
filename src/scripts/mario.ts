@@ -151,13 +151,15 @@ const render = () => {
   if (mario.src !== player.sprite) mario.src = player.sprite;
 };
 
-const gameloop = (lastframe?: number) => {
-  const now = performance.now();
-  const delta = lastframe ? now - lastframe : 0;
+let lastframe = 0;
+
+const gameloop = (current: number) => {
+  const delta = current - lastframe;
+  lastframe = current;
 
   update(delta);
   render();
-  setTimeout(() => gameloop(now), 10);
+  window.requestAnimationFrame(gameloop);
 };
 
-gameloop();
+window.requestAnimationFrame(gameloop);
