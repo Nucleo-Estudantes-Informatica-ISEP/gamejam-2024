@@ -14,23 +14,22 @@ const player = {
     x: 0,
     y: 0
   },
-  accelY: 1,
   isDucking: false,
   isOnGround: true,
-  isJumping: false,
-  isMoving: false, // use velocity
+  isMoving: false,
   speed: 0.4,
-  jumpPower: 15,
+  jumpPower: 1.5,
   sprite: '/mario.png'
 };
 
-const gravity = 0.03;
+const gravity = 0.005;
 
 const inputState = {
   up: false,
   down: false,
   left: false,
-  right: false
+  right: false,
+  dev1: false
 };
 
 const sprites = {
@@ -71,6 +70,11 @@ const handleInput = (event: KeyboardEvent, state: boolean) => {
       event.preventDefault();
       inputState.down = state;
       break;
+
+    case 'KeyP':
+      event.preventDefault();
+      inputState.dev1 = state;
+      break;
   }
 };
 
@@ -78,8 +82,7 @@ document.addEventListener('keydown', (e) => handleInput(e, true));
 document.addEventListener('keyup', (e) => handleInput(e, false));
 
 mario.addEventListener('click', () => {
-  if (!player.isJumping) {
-    player.isJumping = true;
+  if (player.isOnGround) {
     player.isOnGround = false;
     player.velocity.y = player.jumpPower;
   }
@@ -111,26 +114,24 @@ const update = (delta: number) => {
     player.isMoving = false;
   }
 
-  if (inputState.up && !player.isJumping) {
-    player.isJumping = true;
+  if (inputState.up && player.isOnGround) {
     player.isOnGround = false;
     player.velocity.y = player.jumpPower;
   }
 
   if (!player.isOnGround) {
-    player.accelY -= gravity;
-    player.pos.y += player.velocity.y * player.accelY;
+    player.velocity.y -= gravity * delta;
+    player.pos.y += player.velocity.y * delta + (delta * (gravity + gravity * delta)) / 2;
   }
 
   if (player.pos.y < 0) {
     player.pos.y = 0;
-    player.accelY = 1;
     player.isOnGround = true;
   }
 
-  if (!inputState.up) player.isJumping = false;
-
   player.isDucking = inputState.down;
+
+  if (inputState.dev1) player.isOnGround = true;
 
   if (!player.isOnGround) {
     player.sprite = sprites.jumping;
