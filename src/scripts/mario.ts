@@ -6,7 +6,7 @@ const player = {
     height: mario.clientHeight
   },
   pos: {
-    x: 0,
+    x: window.innerWidth / 10,
     y: 0
   },
   direction: 1,
@@ -19,7 +19,7 @@ const player = {
   isOnGround: true,
   isJumping: false,
   isMoving: false, // use velocity
-  speed: 0.35,
+  speed: 0.38,
   jumpPower: 15,
   sprite: '/mario.png'
 };
@@ -33,22 +33,31 @@ const inputState = {
   right: false
 };
 
+const sprites = {
+  still: '/mario.png',
+  jumping: '/mario-jumping.png',
+  running: ['/mario-running-0.png', '/mario-running-1.png', '/mario-running-2.png']
+};
+
 const handleInput = (event: KeyboardEvent, state: boolean) => {
   switch (event.code) {
     case 'ArrowLeft':
     case 'KeyA':
+    case 'KeyH':
       event.preventDefault();
       inputState.left = state;
       break;
 
     case 'ArrowRight':
     case 'KeyD':
+    case 'KeyL':
       event.preventDefault();
       inputState.right = state;
       break;
 
     case 'ArrowUp':
     case 'KeyW':
+    case 'KeyK':
     case 'Space':
       event.preventDefault();
       inputState.up = state;
@@ -56,6 +65,7 @@ const handleInput = (event: KeyboardEvent, state: boolean) => {
 
     case 'ArrowDown':
     case 'KeyS':
+    case 'KeyJ':
       event.preventDefault();
       inputState.down = state;
       break;
@@ -64,6 +74,14 @@ const handleInput = (event: KeyboardEvent, state: boolean) => {
 
 document.addEventListener('keydown', (e) => handleInput(e, true));
 document.addEventListener('keyup', (e) => handleInput(e, false));
+
+mario.addEventListener('click', () => {
+  if (!player.isJumping) {
+    player.isJumping = true;
+    player.isOnGround = false;
+    player.velocity.y = player.jumpPower;
+  }
+});
 
 const update = (delta: number) => {
   player.isMoving = false;
@@ -85,6 +103,10 @@ const update = (delta: number) => {
     player.pos.x = posX;
     player.direction = 1;
     player.isMoving = true;
+  }
+
+  if (inputState.left && inputState.right) {
+    player.isMoving = false;
   }
 
   if (inputState.up && !player.isJumping) {
@@ -113,6 +135,16 @@ const update = (delta: number) => {
       ? '/mario-running.gif'
       : '/mario.png'
     : '/mario-jumping.png';
+
+  if (!player.isOnGround) {
+    player.sprite = sprites.jumping;
+  } else if (player.isMoving) {
+    const now = performance.now();
+    const i = Math.floor((now / 100) % 3);
+    player.sprite = sprites.running[i];
+  } else {
+    player.sprite = sprites.still;
+  }
 };
 
 const render = () => {
