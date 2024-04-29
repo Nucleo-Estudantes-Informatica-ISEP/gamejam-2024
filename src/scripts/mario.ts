@@ -19,7 +19,7 @@ const player = {
   isOnGround: true,
   isJumping: false,
   isMoving: false, // use velocity
-  speed: 0.38,
+  speed: 0.4,
   jumpPower: 15,
   sprite: '/mario.png'
 };
@@ -38,6 +38,8 @@ const sprites = {
   jumping: '/mario-jumping.png',
   running: ['/mario-running-0.png', '/mario-running-1.png', '/mario-running-2.png']
 };
+
+const widthOffset = Object.hasOwn(window, 'chrome') ? 15 : 0;
 
 const handleInput = (event: KeyboardEvent, state: boolean) => {
   switch (event.code) {
@@ -96,7 +98,7 @@ const update = (delta: number) => {
   }
 
   if (inputState.right) {
-    const maxX = window.innerWidth - player.size.width;
+    const maxX = window.innerWidth - player.size.width - widthOffset;
     let posX = player.pos.x + player.speed * delta;
     if (posX > maxX) posX = maxX;
 
