@@ -130,12 +130,6 @@ const update = (delta: number) => {
 
   player.isDucking = inputState.down;
 
-  player.sprite = player.isOnGround
-    ? player.isMoving
-      ? '/mario-running.gif'
-      : '/mario.png'
-    : '/mario-jumping.png';
-
   if (!player.isOnGround) {
     player.sprite = sprites.jumping;
   } else if (player.isMoving) {
