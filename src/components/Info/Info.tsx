@@ -1,5 +1,4 @@
 // import React, { useState } from 'react';
-import { schedule as SCHEDULE } from '../../data/schedule';
 
 interface ScheduleContentProps {
     children?: React.ReactNode;
@@ -8,7 +7,7 @@ interface ScheduleContentProps {
 const ScheduleContent: React.FC<ScheduleContentProps> = () => {
     return (
         <>
-            <div className="" style={{ textShadow: '#000000 2px 2px 0px, #262525 2px 2px 0px' }}>
+            <div className="mx-4" style={{ textShadow: '#000000 2px 2px 0px, #262525 2px 2px 0px' }}>
                 <div className="col-12 mb-8" data-aos="fade-left" data-aos-duration="1000">
                     <h1 style={{ textShadow: '#3d1080 2px 2px 0px, #424141  4px 4px 0px' }} className="text-neon-yellow font-bold mt-20 uppercase text-5xl filter ">Are you ready?</h1>
                     <span className="font-thin text-2xl ">A terceira edição da LEVEL-UP GAMEJAM<br />
