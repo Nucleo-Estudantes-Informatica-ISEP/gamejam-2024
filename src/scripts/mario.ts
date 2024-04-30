@@ -1,9 +1,10 @@
-const mario = document.getElementById('mario') as HTMLImageElement;
+const marioElem = document.getElementById('mario') as HTMLImageElement;
+const luckyboxElem = document.getElementById('luckybox') as HTMLImageElement;
 
 const player = {
   size: {
-    width: mario.clientWidth,
-    height: mario.clientHeight
+    width: marioElem.clientWidth,
+    height: marioElem.clientHeight
   },
   pos: {
     x: window.innerWidth / 10,
@@ -18,8 +19,19 @@ const player = {
   isOnGround: true,
   isMoving: false,
   speed: 0.4,
-  jumpPower: 1.5,
+  jumpPower: 1.9,
   sprite: '/mario.png'
+};
+
+const luckybox = {
+  size: {
+    width: luckyboxElem.clientWidth,
+    height: luckyboxElem.clientHeight
+  },
+  pos: {
+    x: window.innerWidth - window.innerWidth / 8,
+    y: 240
+  }
 };
 
 const gravity = 0.005;
@@ -81,12 +93,38 @@ const handleInput = (event: KeyboardEvent, state: boolean) => {
 document.addEventListener('keydown', (e) => handleInput(e, true));
 document.addEventListener('keyup', (e) => handleInput(e, false));
 
-mario.addEventListener('click', () => {
+marioElem.addEventListener('click', () => {
   if (player.isOnGround) {
     player.isOnGround = false;
     player.velocity.y = player.jumpPower;
   }
 });
+
+document.addEventListener('resize', () => {
+  // move player if out of view
+  // move luckybox if out of view
+});
+
+const checkCollision = () => {
+  const collisionY =
+    player.pos.y + player.size.height >= luckybox.pos.y &&
+    player.pos.y <= luckybox.pos.y + luckybox.size.height;
+
+  const collisionX =
+    player.pos.x + player.size.width >= luckybox.pos.x &&
+    player.pos.x <= luckybox.pos.x + luckybox.size.width;
+
+  return collisionX && collisionY;
+};
+
+const checkIsGrounded = () => {
+  return (
+    player.pos.y === 0 ||
+    (player.pos.y === luckybox.pos.y + luckybox.size.height + 1 &&
+      player.pos.x + player.size.width >= luckybox.pos.x &&
+      player.pos.x <= luckybox.pos.x + luckybox.size.width)
+  );
+};
 
 const update = (delta: number) => {
   player.isMoving = false;
@@ -98,6 +136,10 @@ const update = (delta: number) => {
     player.pos.x = posX;
     player.direction = -1;
     player.isMoving = true;
+
+    if (checkCollision()) {
+      player.pos.x = luckybox.pos.x + luckybox.size.width + 1;
+    }
   }
 
   if (inputState.right) {
@@ -108,6 +150,10 @@ const update = (delta: number) => {
     player.pos.x = posX;
     player.direction = 1;
     player.isMoving = true;
+
+    if (checkCollision()) {
+      player.pos.x = luckybox.pos.x - player.size.width - 1;
+    }
   }
 
   if (inputState.left && inputState.right) {
@@ -122,6 +168,18 @@ const update = (delta: number) => {
   if (!player.isOnGround) {
     player.velocity.y -= gravity * delta;
     player.pos.y += player.velocity.y * delta + (delta * (gravity + gravity * delta)) / 2;
+
+    if (checkCollision()) {
+      if (player.velocity.y > 0) {
+        player.velocity.y = 0;
+        player.pos.y = luckybox.pos.y - player.size.height - 4;
+      } else {
+        player.isOnGround = true;
+        player.pos.y = luckybox.pos.y + luckybox.size.height + 1;
+      }
+    }
+  } else {
+    if (!checkIsGrounded()) player.isOnGround = false;
   }
 
   if (player.pos.y < 0) {
@@ -145,10 +203,13 @@ const update = (delta: number) => {
 };
 
 const render = () => {
-  mario.style.left = `${player.pos.x}px`;
-  mario.style.bottom = `${player.pos.y}px`;
-  mario.style.transform = `scale(${player.direction}, 1)`;
-  if (mario.src !== player.sprite) mario.src = player.sprite;
+  marioElem.style.left = `${player.pos.x}px`;
+  marioElem.style.bottom = `${player.pos.y}px`;
+  marioElem.style.transform = `scale(${player.direction}, 1)`;
+  if (marioElem.src !== player.sprite) marioElem.src = player.sprite;
+
+  luckyboxElem.style.left = `${luckybox.pos.x}px`;
+  luckyboxElem.style.bottom = `${luckybox.pos.y}px`;
 };
 
 let lastframe = 0;
