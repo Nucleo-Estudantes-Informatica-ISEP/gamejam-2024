@@ -43,6 +43,7 @@ module.exports = {
         silver: '1px 1px 4px #c0c0c0',
         bronze: '1px 1px 4px #cd7f32',
         whiteStrokeShadow: '2px 2px 0 #fff',
+        blackStrokeShadow: '3px 3px 0 #040404',
         whiteShadow: '1px 1px 3px #cecece',
         primaryStrokeShadow: '3px 3px 0 #B567DC',
         buttonShadow: '2px 2px 10px #B567DC',
