@@ -79,6 +79,8 @@ export class Player extends GameObject {
           if (this.velocity.y > 0) {
             this.velocity.y = 0;
             this.pos.y = o.pos.y - this.height - 4;
+            const lucky = document.getElementById('lucky-box-collected');
+            if (lucky) lucky.style.display = 'block';
           } else {
             this.isOnGround = true;
             this.pos.y = o.pos.y + o.height + 1;

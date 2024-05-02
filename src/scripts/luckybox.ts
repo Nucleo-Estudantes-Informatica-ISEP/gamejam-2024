@@ -4,6 +4,11 @@ import { GameObject } from './gameobject';
 export class LuckyBox extends GameObject {
   constructor(game: Game, x: number, y: number, size: number) {
     super(game, x, y, size, size, '/luckybox.gif');
+    const collected = document.getElementById('lucky-box-collected');
+    if (collected) {
+      collected.style.left = `${x}px`;
+      collected.style.bottom = `${y}px`;
+    }
 
     window.addEventListener('resize', () => {
       // TODO move player if out of view
