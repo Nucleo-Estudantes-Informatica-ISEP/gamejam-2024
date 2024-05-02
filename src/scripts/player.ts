@@ -24,7 +24,9 @@ export class Player extends GameObject {
     super(game, x, y, size, size, sprites.still);
     this.direction = 1;
 
-    this.htmlelement.addEventListener('click', this.jump);
+    this.htmlelement.style.cursor = 'pointer';
+
+    this.htmlelement.addEventListener('click', () => this.jump());
   }
 
   update(delta: number): void {
