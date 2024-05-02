@@ -5,6 +5,9 @@ export class LuckyBox extends GameObject {
   constructor(game: Game, x: number, y: number, size: number) {
     super(game, x, y, size, size, '/luckybox.gif');
 
+    if (window.innerWidth < 768) this.htmlelement.style.visibility = 'hidden';
+    else this.htmlelement.style.visibility = 'visible';
+
     window.addEventListener('resize', () => {
       // TODO move player if out of view
       // TODO move luckybox if out of view
