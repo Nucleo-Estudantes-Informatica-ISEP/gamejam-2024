@@ -4,7 +4,7 @@ import HeroParticles from './HeroParticles';
 const Hero: React.FC = () => {
   const { scrollYProgress } = useScroll();
 
-  const input = [0, 0.4, 1];
+  const input = [0, 0.2, 1];
   const opacityOutput = [1, 0, 0];
 
   const opacity = useTransform(scrollYProgress, input, opacityOutput);
