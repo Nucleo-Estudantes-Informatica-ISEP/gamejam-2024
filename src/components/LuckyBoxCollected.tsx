@@ -13,7 +13,7 @@ const LuckyBox: React.FC = () => {
   };
 
   return (
-    <div className="hidden absolute z-20" id="lucky-box-collected">
+    <div className="hidden absolute z-[60]" id="lucky-box-collected">
       <motion.img
         className="size-16 lg:size-24 brightness-90 cursor-pointer duration-100 aspect-square"
         src={'/collected-luckybox.png'}
