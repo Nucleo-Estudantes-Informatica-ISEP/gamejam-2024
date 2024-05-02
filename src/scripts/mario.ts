@@ -103,6 +103,9 @@ marioElem.addEventListener('click', () => {
 document.addEventListener('resize', () => {
   // move player if out of view
   // move luckybox if out of view
+  console.log('HEY');
+
+  luckybox.pos.x = window.innerWidth - window.innerWidth / 8;
 });
 
 const checkCollision = () => {
