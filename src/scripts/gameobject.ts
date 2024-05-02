@@ -25,6 +25,7 @@ export abstract class GameObject {
     this.htmlelement.style.height = `${this.height}px`;
     this.htmlelement.style.left = `${this.pos.x}px`;
     this.htmlelement.style.bottom = `${this.pos.y}px`;
+    this.htmlelement.style.zIndex = '50';
   }
 
   getSize() {
