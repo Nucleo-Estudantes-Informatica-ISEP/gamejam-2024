@@ -8,13 +8,13 @@ export const info: Info[] = [
     title: 'Are you ready?',
     items: [
       <>
-        A terceira edição da LEVEL-UP GAMEJAM <br /> criada pelo NEI regressa. Maior e melhor.
+        A quinta edição da Gamejam está de volta!<br /> Contamos contigo?
       </>
     ]
   },
   {
     title: 'Data',
-    items: ['3 junho (18h) - 5 junho (18h)']
+    items: ['24 maio (20h) - 26 maio (16h)']
   },
   {
     title: 'Local',
