@@ -130,13 +130,14 @@
   let yDown = null;
 
   function handleTouchStart(event) {
+    if (gameOver) resetGame();
+
     const firstTouch = event.touches[0];
     xDown = firstTouch.clientX;
     yDown = firstTouch.clientY;
   }
 
   function handleTouchMove(event) {
-    if (gameOver) resetGame();
     if (!xDown || !yDown) {
       return;
     }
