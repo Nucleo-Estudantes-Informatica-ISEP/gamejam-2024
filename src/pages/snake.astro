@@ -35,7 +35,7 @@
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.fillStyle = 'white';
-      ctx.font = '30px Arial';
+      ctx.font = '40px';
       ctx.textAlign = 'center';
       ctx.fillText(
         'Game Over. Press Space to Restart',
@@ -136,6 +136,7 @@
   }
 
   function handleTouchMove(event) {
+    if (gameOver) resetGame();
     if (!xDown || !yDown) {
       return;
     }
