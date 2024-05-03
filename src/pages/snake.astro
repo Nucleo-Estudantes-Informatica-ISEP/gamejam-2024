@@ -1,5 +1,5 @@
 <script type="module" is:inline>
-  const CELL_SIZE = 20;
+  const CELL_SIZE = 30;
   const FRAME_RATE = 10;
 
   const snake = {
@@ -9,8 +9,8 @@
   };
 
   const food = {
-    x: Math.floor(Math.random() * 20),
-    y: Math.floor(Math.random() * 20)
+    x: Math.floor(Math.random() * CELL_SIZE),
+    y: Math.floor(Math.random() * CELL_SIZE)
   };
 
   let gameOver = false;
@@ -35,7 +35,7 @@
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.fillStyle = 'white';
-      ctx.font = '40px';
+      ctx.font = '48px Arial';
       ctx.textAlign = 'center';
       ctx.fillText(
         'Game Over. Press Space to Restart',
@@ -138,9 +138,7 @@
   }
 
   function handleTouchMove(event) {
-    if (!xDown || !yDown) {
-      return;
-    }
+    if (!xDown || !yDown) return;
 
     const xUp = event.touches[0].clientX;
     const yUp = event.touches[0].clientY;
