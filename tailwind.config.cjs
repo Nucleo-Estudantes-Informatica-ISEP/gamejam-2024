@@ -19,7 +19,9 @@ module.exports = {
         bronze: '#cd7f32',
         silver: '#c0c0c0',
         gold: '#ffd700',
-        red: '#d70014'
+        red: '#d70014',
+        'neon-yellow': '#DFFF00',
+        'persian-indigo': '#3d1080',
       },
       animation: {
         'bounce-slow': 'bounce 1.5s ease-in-out infinite',

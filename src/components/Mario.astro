@@ -1,21 +1,14 @@
-<img
-  id="mario"
-  class="absolute bottom-0 left-0 z-50 w-24 h-24 cursor-pointer"
-  src="/mario.png"
-  alt="Mario"
-/>
-
-<img
-  id="luckybox"
-  class="absolute bottom-0 right-0 z-50 w-20 h-20 max-md:hidden"
-  src="/luckybox.gif"
-  alt="Mario"
-/>
+---
+import LuckyBoxCollection from '../components/LuckyBoxCollected';
+---
 
 <!-- preload images -->
+<img src="/mario.png" alt="" srcset="" class="hidden" />
 <img src="/mario-jumping.png" alt="" srcset="" class="hidden" />
 <img src="/mario-running-0.png" alt="" srcset="" class="hidden" />
 <img src="/mario-running-1.png" alt="" srcset="" class="hidden" />
 <img src="/mario-running-2.png" alt="" srcset="" class="hidden" />
+<img src="/luckybox.gif" alt="" srcset="" class="hidden" />
+<LuckyBoxCollection client:visible />
 
 <script src="../scripts/mario.ts"></script>

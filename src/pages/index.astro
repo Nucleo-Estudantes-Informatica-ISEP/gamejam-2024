@@ -4,15 +4,17 @@ import Layout from '../layouts/Layout.astro';
 
 import Hero from '../components/Hero';
 
-import Footer from '../components/Footer.astro';
 import ComingSoon from '../components/Countdown/ComingSoon.astro';
+import Footer from '../components/Footer.astro';
+import InfoContainer from '../components/Info/InfoContainer.astro';
 import Join from '../components/Join/Join.astro';
 ---
 
 <section class="bg-bg-image bg-cover bg-center bg-fixed">
   <Layout title=" Gamejam 2024">
-    <Hero client:only />
+    <Hero client:only="react" />
   </Layout>
+  <InfoContainer />
   <Container>
     <ComingSoon />
     <Join />
