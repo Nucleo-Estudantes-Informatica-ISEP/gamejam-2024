@@ -1,7 +1,7 @@
-import { LuckyBox } from './luckybox';
 import type { GameObject } from './gameobject';
-import { Player } from './player';
 import { InputHandler } from './inputhandler';
+import { LuckyBox } from './luckybox';
+import { Player } from './player';
 
 const GRAVITY = 0.005;
 
@@ -13,9 +13,15 @@ export class Game {
 
   constructor() {
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
-    const luckybox = new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80);
+    const luckyboxes = [
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
+      new LuckyBox(this, 320, 240, 80),
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 2, 240, 80),
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 2.5, 520, 80),
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 4, 520, 80)
+    ];
 
-    this.gameObjects.push(luckybox);
+    this.gameObjects.push(...luckyboxes);
 
     this.input = new InputHandler();
   }
