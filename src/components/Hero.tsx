@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import HeroParticles from './HeroParticles';
 
 const Hero: React.FC = () => {
   const { scrollYProgress } = useScroll();
@@ -15,7 +14,7 @@ const Hero: React.FC = () => {
         <motion.div
           className="w-full flex items-center justify-center h-full fixed select-none"
           style={{ opacity }}>
-          <img className="aspect-[4/5] w-11/12 max-w-5xl" src="/logov1.png" alt="hero" />
+          <img className="aspect-square w-[30%]" src="/logo.webp" alt="GameJam 2024 Logo" />
         </motion.div>
       </div>
     </main>
