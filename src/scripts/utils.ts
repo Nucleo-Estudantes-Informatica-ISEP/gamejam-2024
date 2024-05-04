@@ -22,3 +22,16 @@ export const checkIsGrounded = (obj: GameObject, objs: GameObject[]) => {
 
   return ground || inGameObject;
 };
+
+export const totalDocumentHeight = () => {
+  const body = document.body;
+  const html = document.documentElement;
+
+  return Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
+};

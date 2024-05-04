@@ -2,7 +2,7 @@ import type { Game } from './game';
 import { GameObject } from './gameobject';
 import { LuckyBox } from './luckybox';
 import type { Point } from './point';
-import { checkCollision, checkIsGrounded } from './utils';
+import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
 
 const sprites = {
   still: '/mario.png',
@@ -10,7 +10,7 @@ const sprites = {
   running: ['/mario-running-0.png', '/mario-running-1.png', '/mario-running-2.png']
 };
 
-const widthOffset = Object.hasOwn(window, 'chrome') ? 15 : 0;
+const viewThreshold = 50;
 
 export class Player extends GameObject {
   direction: number;
@@ -28,6 +28,13 @@ export class Player extends GameObject {
     this.htmlelement.style.cursor = 'pointer';
 
     this.htmlelement.addEventListener('click', () => this.jump());
+
+    window.addEventListener('resize', () => {
+      const screenWidth = document.documentElement.clientWidth;
+      if (this.pos.x + this.width >= screenWidth) {
+        this.pos = this.initialPos;
+      }
+    });
   }
 
   update(delta: number): void {
@@ -51,7 +58,8 @@ export class Player extends GameObject {
     }
 
     if (inputState.right) {
-      const maxX = window.innerWidth - this.game.player.width - widthOffset;
+      const screenWidth = document.documentElement.clientWidth;
+      const maxX = screenWidth - this.game.player.width;
       let posX = this.game.player.pos.x + this.game.player.speed * delta;
       if (posX > maxX) posX = maxX;
 
@@ -111,6 +119,19 @@ export class Player extends GameObject {
       this.sprite = sprites.running[i];
     } else {
       this.sprite = sprites.still;
+    }
+
+    const documentHeight = totalDocumentHeight();
+    const upperScrollOffset = documentHeight - window.scrollY - viewThreshold;
+    const lowerScrollOffset = documentHeight - window.scrollY - window.innerHeight + viewThreshold;
+
+    if (
+      !this.game.isScrolling &&
+      (this.isMoving || !this.isOnGround) &&
+      (this.pos.y < lowerScrollOffset || this.pos.y + this.height > upperScrollOffset)
+    ) {
+      this.game.isScrolling = true;
+      this.htmlelement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 

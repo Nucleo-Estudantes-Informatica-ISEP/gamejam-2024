@@ -19,7 +19,6 @@ export class LuckyBox extends GameObject {
     else this.htmlelement.style.display = 'block';
 
     window.addEventListener('resize', () => {
-      // TODO move player if out of view
       // TODO move luckybox if out of view
 
       if (window.innerWidth < 768) this.htmlelement.style.display = 'none';

@@ -10,6 +10,7 @@ export class Game {
   gameObjects: GameObject[] = [];
   gravity: number = GRAVITY;
   input: InputHandler;
+  isScrolling: boolean = false; // chromium fix again
 
   constructor() {
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
@@ -24,6 +25,11 @@ export class Game {
     this.gameObjects.push(...luckyboxes);
 
     this.input = new InputHandler();
+
+    window.addEventListener('scrollend', () => {
+      console.log('scrolling ends');
+      this.isScrolling = false;
+    });
   }
 
   start() {
