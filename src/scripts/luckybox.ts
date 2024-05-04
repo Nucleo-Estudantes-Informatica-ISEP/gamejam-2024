@@ -48,5 +48,6 @@ export class LuckyBox extends GameObject {
 
   collect(): void {
     this.isCollected = true;
+    // TODO: collect animation + coin
   }
 }

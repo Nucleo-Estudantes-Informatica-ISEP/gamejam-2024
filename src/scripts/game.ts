@@ -1,5 +1,6 @@
 import type { GameObject } from './gameobject';
-import { InputHandler } from './inputhandler';
+import { KeyboardHandler } from './keyboardhandler';
+import { InputState } from './inputstate';
 import { LuckyBox } from './luckybox';
 import { Player } from './player';
 
@@ -9,11 +10,13 @@ export class Game {
   player: Player;
   gameObjects: GameObject[] = [];
   gravity: number = GRAVITY;
-  input: InputHandler;
+  input: InputState;
   isScrolling: boolean = false; // chromium fix again
 
   constructor() {
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
+
+    // TODO: update
     const luckyboxes = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
       new LuckyBox(this, 320, 240, 80),
@@ -24,7 +27,9 @@ export class Game {
 
     this.gameObjects.push(...luckyboxes);
 
-    this.input = new InputHandler();
+    this.input = new InputState();
+
+    new KeyboardHandler(this);
 
     window.addEventListener('scrollend', () => (this.isScrolling = false));
   }

@@ -1,25 +1,26 @@
-export class InputHandler {
-  up: boolean = false;
-  down: boolean = false;
-  left: boolean = false;
-  right: boolean = false;
-  dev1: boolean = false;
+import type { Game } from './game';
 
-  constructor() {
+export class KeyboardHandler {
+  game: Game;
+
+  constructor(game: Game) {
+    this.game = game;
+
     const handleInput = (event: KeyboardEvent, state: boolean) => {
+      const inputState = this.game.input;
       switch (event.code) {
         case 'ArrowLeft':
         case 'KeyA':
         case 'KeyH':
           event.preventDefault();
-          this.left = state;
+          inputState.left = state;
           break;
 
         case 'ArrowRight':
         case 'KeyD':
         case 'KeyL':
           event.preventDefault();
-          this.right = state;
+          inputState.right = state;
           break;
 
         case 'ArrowUp':
@@ -27,19 +28,19 @@ export class InputHandler {
         case 'KeyK':
         case 'Space':
           event.preventDefault();
-          this.up = state;
+          inputState.up = state;
           break;
 
         case 'ArrowDown':
         case 'KeyS':
         case 'KeyJ':
           event.preventDefault();
-          this.down = state;
+          inputState.down = state;
           break;
 
         case 'KeyP':
           event.preventDefault();
-          this.dev1 = state;
+          inputState.dev1 = state;
           break;
       }
     };
