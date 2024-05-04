@@ -9,7 +9,7 @@ interface InfoContentProps {
 const InfoContent: React.FC<InfoContentProps> = () => {
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col overflow-x-hidden"
       style={{ textShadow: '#000000 2px 2px 0px, #262525 2px 2px 0px' }}>
       {info.map((section, index) => (
         <motion.div
