@@ -99,6 +99,7 @@ export class Player extends GameObject {
         }
       });
     } else {
+      this.velocity.y = 0;
       if (!checkIsGrounded(this, this.game.gameObjects)) this.isOnGround = false;
     }
 
