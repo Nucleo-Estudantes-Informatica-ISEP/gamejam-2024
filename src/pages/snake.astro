@@ -6,7 +6,18 @@ import Layout from '../layouts/Layout.astro';
 
 <script type="module" is:inline>
   const CELL_SIZE = 30;
-  const FRAME_RATE = 10;
+  const MIN_FRAME_RATE = 8;
+  const MAX_FRAME_RATE = 30;
+  const HIGHSCORE_KEY = '@Gamejam2024:snakeHighscore';
+  const BASE_MARGIN = 30;
+  const MARGIN_BETWEEN_TEXT = 25;
+  const BASE_FOOD_COORDS = 4;
+  const CELL_PADDING = 2;
+
+  let highestScore = localStorage.getItem(HIGHSCORE_KEY) || 0;
+
+  let score = 0;
+  let gameLoop;
 
   const snake = {
     body: [],
@@ -15,8 +26,8 @@ import Layout from '../layouts/Layout.astro';
   };
 
   const food = {
-    x: Math.floor(Math.random() * CELL_SIZE),
-    y: Math.floor(Math.random() * CELL_SIZE)
+    x: BASE_FOOD_COORDS,
+    y: BASE_FOOD_COORDS
   };
 
   let gameOver = false;
@@ -24,7 +35,12 @@ import Layout from '../layouts/Layout.astro';
   function drawSnake(ctx) {
     ctx.fillStyle = 'white';
     snake.body.forEach((segment) => {
-      ctx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      ctx.fillRect(
+        segment.x * CELL_SIZE + CELL_PADDING,
+        segment.y * CELL_SIZE + CELL_PADDING,
+        CELL_SIZE - 2 * CELL_PADDING,
+        CELL_SIZE - 2 * CELL_PADDING
+      );
     });
   }
 
@@ -37,6 +53,8 @@ import Layout from '../layouts/Layout.astro';
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     drawSnake(ctx);
     drawFood(ctx);
+    displayScore(ctx);
+    displayHighestScore(ctx);
     if (gameOver) {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -51,13 +69,43 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
+  function displayScore(ctx) {
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('Score: ' + score, 10, BASE_MARGIN);
+  }
+
+  function displayHighestScore(ctx) {
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('Highest Score: ' + highestScore, 10, BASE_MARGIN + MARGIN_BETWEEN_TEXT);
+  }
+
+  function updateHighestScore() {
+    if (score > highestScore) {
+      highestScore = score;
+      localStorage.setItem('snakeHighestScore', highestScore);
+    }
+  }
+
   function moveSnake(ctx) {
     if (gameOver) return;
+    const frameRate = Math.min(Math.max(snake.body.length, MIN_FRAME_RATE), MAX_FRAME_RATE);
+
+    clearInterval(gameLoop);
+    gameLoop = setInterval(() => {
+      moveSnake(ctx);
+      draw(ctx);
+    }, 1000 / frameRate);
+
     const head = { x: snake.body[0].x + snake.dx, y: snake.body[0].y + snake.dy };
     if (snake.body.some((segment) => segment.x === head.x && segment.y === head.y)) {
       gameOver = true;
       return;
     }
+
     if (
       head.x < 0 ||
       head.x >= ctx.canvas.width / CELL_SIZE ||
@@ -71,6 +119,7 @@ import Layout from '../layouts/Layout.astro';
     snake.body.unshift(head);
 
     if (head.x === food.x && head.y === food.y) {
+      score++;
       generateNewFoodPosition(ctx);
     } else {
       snake.body.pop();
@@ -185,24 +234,32 @@ import Layout from '../layouts/Layout.astro';
     snake.body = [{ x: 10, y: 10 }];
     snake.dx = 1;
     snake.dy = 0;
-    food.x = Math.floor(Math.random() * 20);
-    food.y = Math.floor(Math.random() * 20);
+    updateHighestScore();
     gameOver = false;
+    score = 0;
   }
 
   async function main() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.style.backgroundColor = 'black';
     document.body.appendChild(canvas);
+
+    resizeCanvas();
 
     snake.body.push({ x: 10, y: 10 });
 
-    setInterval(() => {
+    gameLoop = setInterval(() => {
       moveSnake(ctx);
       draw(ctx);
-    }, 1000 / FRAME_RATE);
+    }, 1000 / MAX_FRAME_RATE);
+
+    window.addEventListener('resize', resizeCanvas);
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
   }
 
   main();
@@ -214,6 +271,7 @@ import Layout from '../layouts/Layout.astro';
     overflow: hidden;
     padding: 0;
     border: 0;
+    touch-action: none;
   }
 
   canvas {
