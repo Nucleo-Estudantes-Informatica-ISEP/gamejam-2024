@@ -1,10 +1,8 @@
 import type { Game } from './game';
 
-export class KeyboardHandler {
-  game: Game;
-
+export class KeyboardHandler extends InputHandler {
   constructor(game: Game) {
-    this.game = game;
+    super(game);
 
     const handleInput = (event: KeyboardEvent, state: boolean) => {
       const inputState = this.game.input;
@@ -47,5 +45,10 @@ export class KeyboardHandler {
 
     document.addEventListener('keydown', (e) => handleInput(e, true));
     document.addEventListener('keyup', (e) => handleInput(e, false));
+  }
+
+  unregister(): void {
+    document.removeEventListener('keydown');
+    document.removeEventListener('keyup');
   }
 }
