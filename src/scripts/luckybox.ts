@@ -15,15 +15,15 @@ export class LuckyBox extends GameObject {
       this.collectedElement = collectedElement;
     }
 
-    if (window.innerWidth < 768) this.htmlelement.style.visibility = 'hidden';
-    else this.htmlelement.style.visibility = 'visible';
+    if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
+    else this.htmlelement.style.display = 'block';
 
     window.addEventListener('resize', () => {
       // TODO move player if out of view
       // TODO move luckybox if out of view
 
-      if (window.innerWidth < 768) this.htmlelement.style.visibility = 'hidden';
-      else this.htmlelement.style.visibility = 'visible';
+      if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
+      else this.htmlelement.style.display = 'block';
     });
   }
 
