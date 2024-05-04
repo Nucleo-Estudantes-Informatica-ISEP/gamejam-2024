@@ -10,18 +10,19 @@ export class Game {
   gameObjects: GameObject[] = [];
   gravity: number = GRAVITY;
   input: InputHandler;
+  luckyboxes: LuckyBox[] = [];
 
   constructor() {
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
-    const luckyboxes = [
+    this.luckyboxes = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
       new LuckyBox(this, 320, 240, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2, 240, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2.5, 520, 80),
-      new LuckyBox(this, window.innerWidth - window.innerWidth / 4, 520, 80)
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 4.5, 520, 80)
     ];
 
-    this.gameObjects.push(...luckyboxes);
+    this.gameObjects.push(...this.luckyboxes);
 
     this.input = new InputHandler();
   }

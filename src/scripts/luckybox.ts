@@ -3,6 +3,7 @@ import { GameObject } from './gameobject';
 
 export class LuckyBox extends GameObject {
   collectedElement: HTMLElement | null = null;
+  isCollected = false;
 
   constructor(game: Game, x: number, y: number, size: number) {
     super(game, x, y, size, size, '/luckybox.gif');
