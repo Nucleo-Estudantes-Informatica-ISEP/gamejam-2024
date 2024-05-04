@@ -26,10 +26,7 @@ export class Game {
 
     this.input = new InputHandler();
 
-    window.addEventListener('scrollend', () => {
-      console.log('scrolling ends');
-      this.isScrolling = false;
-    });
+    window.addEventListener('scrollend', () => (this.isScrolling = false));
   }
 
   start() {

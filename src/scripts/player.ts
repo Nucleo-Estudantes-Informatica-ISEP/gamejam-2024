@@ -126,13 +126,15 @@ export class Player extends GameObject {
     const upperScrollOffset = documentHeight - window.scrollY - viewThreshold;
     const lowerScrollOffset = documentHeight - window.scrollY - window.innerHeight + viewThreshold;
 
-    if (
-      !this.game.isScrolling &&
-      (this.isMoving || !this.isOnGround) &&
-      (this.pos.y < lowerScrollOffset || this.pos.y + this.height > upperScrollOffset)
-    ) {
-      this.game.isScrolling = true;
-      this.htmlelement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!this.game.isScrolling && (this.isMoving || !this.isOnGround)) {
+      const currentLowerBound = window.scrollY + window.innerHeight;
+      if (
+        (this.pos.y < lowerScrollOffset && currentLowerBound !== documentHeight) ||
+        this.pos.y + this.height > upperScrollOffset
+      ) {
+        this.game.isScrolling = true;
+        this.htmlelement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   }
 
