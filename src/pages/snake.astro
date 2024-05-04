@@ -2,7 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Gamejam 2024 | Snake" />
+<Layout title="Gamejam 2024 | Snake">
+  <img
+    class="h-1/2 aspect-square position absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-25"
+    src="/logo.webp"
+    alt="Gamejam 2024 Logo"
+  />
+</Layout>
 
 <script type="module" is:inline>
   const CELL_SIZE = 30;
@@ -13,6 +19,8 @@ import Layout from '../layouts/Layout.astro';
   const MARGIN_BETWEEN_TEXT = 25;
   const BASE_FOOD_COORDS = 4;
   const CELL_PADDING = 2;
+  const SHADOW_BLUR = 30;
+  const LOADING_TIME = 3000;
 
   let highestScore = localStorage.getItem(HIGHSCORE_KEY) || 0;
 
@@ -33,6 +41,8 @@ import Layout from '../layouts/Layout.astro';
   let gameOver = false;
 
   function drawSnake(ctx) {
+    ctx.shadowColor = 'white';
+    ctx.shadowBlur = SHADOW_BLUR;
     ctx.fillStyle = 'white';
     snake.body.forEach((segment) => {
       ctx.fillRect(
@@ -46,7 +56,12 @@ import Layout from '../layouts/Layout.astro';
 
   function drawFood(ctx) {
     ctx.fillStyle = 'red';
+    ctx.shadowColor = 'red';
+    ctx.shadowBlur = SHADOW_BLUR;
+
     ctx.fillRect(food.x * CELL_SIZE, food.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    ctx.fillStyle = 'white';
+    ctx.shadowBlur = 0;
   }
 
   function draw(ctx) {
@@ -239,6 +254,38 @@ import Layout from '../layouts/Layout.astro';
     score = 0;
   }
 
+  function drawLoadingScreen(ctx) {
+    // draw a loading screen with a loading bar that fills up as the game loads
+    // nothing should be drawn before this call ends
+    ctx.fillStyle = 'white';
+    ctx.font = '48px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading...', ctx.canvas.width / 2, ctx.canvas.height / 2);
+
+    const loadingBarWidth = 300;
+    const loadingBarHeight = 30;
+    const loadingBarX = ctx.canvas.width / 2 - loadingBarWidth / 2;
+    const loadingBarY = ctx.canvas.height / 2 + 50;
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(loadingBarX, loadingBarY, loadingBarWidth, loadingBarHeight);
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 0.01;
+      ctx.fillStyle = 'white';
+      ctx.shadowColor = 'white';
+      ctx.shadowBlur = 1;
+      ctx.fillRect(loadingBarX, loadingBarY, loadingBarWidth * progress, loadingBarHeight);
+      if (progress >= 1) clearInterval(interval);
+    }, 20);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }, LOADING_TIME);
+  }
+
   async function main() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -247,12 +294,16 @@ import Layout from '../layouts/Layout.astro';
 
     resizeCanvas();
 
-    snake.body.push({ x: 10, y: 10 });
+    drawLoadingScreen(ctx);
 
-    gameLoop = setInterval(() => {
-      moveSnake(ctx);
-      draw(ctx);
-    }, 1000 / MAX_FRAME_RATE);
+    setTimeout(() => {
+      snake.body.push({ x: 10, y: 10 });
+
+      gameLoop = setInterval(() => {
+        moveSnake(ctx);
+        draw(ctx);
+      }, 1000 / MAX_FRAME_RATE);
+    }, LOADING_TIME);
 
     window.addEventListener('resize', resizeCanvas);
 
@@ -272,9 +323,11 @@ import Layout from '../layouts/Layout.astro';
     padding: 0;
     border: 0;
     touch-action: none;
+    position: relative;
   }
 
   canvas {
     background: #000;
+    z-index: 30;
   }
 </style>
