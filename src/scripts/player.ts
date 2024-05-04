@@ -5,9 +5,13 @@ import type { Point } from './point';
 import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
 
 const sprites = {
-  still: '/mario.png',
-  jumping: '/mario-jumping.png',
-  running: ['/mario-running-0.png', '/mario-running-1.png', '/mario-running-2.png']
+  still: '/sprites/mario/still.png',
+  jumping: '/sprites/mario/jumping.png',
+  running: [
+    '/sprites/mario/running-0.png',
+    '/sprites/mario/running-1.png',
+    '/sprites/mario/running-2.png'
+  ]
 };
 
 const viewThreshold = 50;
@@ -91,7 +95,8 @@ export class Player extends GameObject {
             this.velocity.y = 0;
             this.pos.y = o.pos.y - this.height - 4;
             if (o instanceof LuckyBox)
-              if (o.collectedElement) o.collectedElement.style.display = 'block';
+              // if (o.collectedElement) o.collectedElement.style.display = 'block';
+              o.collect();
           } else {
             this.isOnGround = true;
             this.pos.y = o.pos.y + o.height + 1;
