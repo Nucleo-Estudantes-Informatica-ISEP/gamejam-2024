@@ -12,10 +12,15 @@ export class Game {
   gravity: number = GRAVITY;
   input: InputState;
   isScrolling: boolean = false; // chromium fix again
-
-  constructor() {
+  parentElement: HTMLElement;
+  
+  constructor(parent: HTMLElement) {
+    this.parentElement = parent;
+    
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
 
+    this.input = new InputState();
+    
     // TODO: update
     const luckyboxes = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
@@ -27,18 +32,15 @@ export class Game {
 
     this.gameObjects.push(...luckyboxes);
 
-    this.input = new InputState();
-
-    new KeyboardHandler(this);
-
     window.addEventListener('scrollend', () => (this.isScrolling = false));
   }
 
   start() {
-    const footer = document.getElementById('footer');
     [this.player, ...this.gameObjects].forEach((o) => {
-      footer!.appendChild(o.htmlelement);
+      parentElement.appendChild(o.htmlelement);
     });
+
+    new KeyboardHandler(this);
 
     let lastframe = 0;
 
