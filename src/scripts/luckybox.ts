@@ -9,7 +9,7 @@ const sprites = {
     '/sprites/luckybox/default-2.png',
     '/sprites/luckybox/default-3.png'
   ],
-  collected: '/sprites/luckybox/collected.png'
+  collected: '/sprites/luckybox/collected.webp'
 };
 
 export class LuckyBox extends GameObject {
