@@ -11,11 +11,12 @@ const Hero: React.FC = () => {
   return (
     <main className="min-h-screen">
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <motion.div
-          className="w-full flex items-center justify-center h-full fixed select-none"
-          style={{ opacity }}>
-          <img className="aspect-square w-[30%]" src="/logo.webp" alt="GameJam 2024 Logo" />
-        </motion.div>
+        <motion.img
+          style={{ opacity }}
+          className="aspect-square w-[30%]"
+          src="/logo.webp"
+          alt="GameJam 2024 Logo"
+        />
       </div>
     </main>
   );
