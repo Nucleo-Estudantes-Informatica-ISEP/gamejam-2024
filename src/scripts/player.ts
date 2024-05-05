@@ -94,9 +94,17 @@ export class Player extends GameObject {
           if (this.velocity.y > 0) {
             this.velocity.y = 0;
             this.pos.y = o.pos.y - this.height - 4;
-            if (o instanceof LuckyBox)
-              // if (o.collectedElement) o.collectedElement.style.display = 'block';
+            if (o instanceof LuckyBox) {
               o.collect();
+              if (this.game.luckyboxes.every((o) => o.isCollected)) {
+                // shake the screen and redirect to the snake game
+                document.body.style.animation = 'shake 1.5s';
+
+                setTimeout(() => {
+                  window.location.href = '/snake';
+                }, 1200);
+              }
+            }
           } else {
             this.isOnGround = true;
             this.pos.y = o.pos.y + o.height + 1;

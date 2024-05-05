@@ -1,4 +1,5 @@
-import { AnimationDefinition, motion, useAnimationControls } from 'framer-motion';
+import type { AnimationDefinition } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 import { useState } from 'react';
 import useIsMobile from '../../hooks/useIsMobile';
 

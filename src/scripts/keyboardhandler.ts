@@ -1,10 +1,13 @@
 import type { Game } from './game';
+import { InputHandler } from './inputhandler';
 
 export class KeyboardHandler extends InputHandler {
+  private handleInput: (event: KeyboardEvent, state: boolean) => any;
+
   constructor(game: Game) {
     super(game);
 
-    const handleInput = (event: KeyboardEvent, state: boolean) => {
+    this.handleInput = (event: KeyboardEvent, state: boolean) => {
       const inputState = this.game.input;
       switch (event.code) {
         case 'ArrowLeft':
@@ -43,12 +46,12 @@ export class KeyboardHandler extends InputHandler {
       }
     };
 
-    document.addEventListener('keydown', (e) => handleInput(e, true));
-    document.addEventListener('keyup', (e) => handleInput(e, false));
+    document.addEventListener('keydown', (e) => this.handleInput(e, true));
+    document.addEventListener('keyup', (e) => this.handleInput(e, false));
   }
 
   unregister(): void {
-    document.removeEventListener('keydown');
-    document.removeEventListener('keyup');
+    document.removeEventListener('keydown', (e) => this.handleInput(e, true));
+    document.removeEventListener('keyup', (e) => this.handleInput(e, false));
   }
 }

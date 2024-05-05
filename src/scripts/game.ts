@@ -1,6 +1,6 @@
 import type { GameObject } from './gameobject';
-import { KeyboardHandler } from './keyboardhandler';
 import { InputState } from './inputstate';
+import { KeyboardHandler } from './keyboardhandler';
 import { LuckyBox } from './luckybox';
 import { Player } from './player';
 
@@ -13,6 +13,7 @@ export class Game {
   input: InputState;
   isScrolling: boolean = false; // chromium fix again
   parentElement: HTMLElement;
+  luckyboxes: LuckyBox[] = [];
   
   constructor(parent: HTMLElement) {
     this.parentElement = parent;
@@ -21,23 +22,23 @@ export class Game {
 
     this.input = new InputState();
     
-    // TODO: update
-    const luckyboxes = [
+    this.player = new Player(this, window.innerWidth / 10, 0, 96);
+    this.luckyboxes = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
       new LuckyBox(this, 320, 240, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2, 240, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2.5, 520, 80),
-      new LuckyBox(this, window.innerWidth - window.innerWidth / 4, 520, 80)
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 4.5, 520, 80)
     ];
 
-    this.gameObjects.push(...luckyboxes);
+    this.gameObjects.push(...this.luckyboxes);
 
     window.addEventListener('scrollend', () => (this.isScrolling = false));
   }
 
   start() {
     [this.player, ...this.gameObjects].forEach((o) => {
-      parentElement.appendChild(o.htmlelement);
+      this.parentElement.appendChild(o.htmlelement);
     });
 
     new KeyboardHandler(this);
