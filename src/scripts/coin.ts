@@ -31,7 +31,12 @@ export class Coin extends GameObject {
 
     this.pos.y = this.initialPos.y + Math.abs(Math.sin((now / duration) * Math.PI)) * distance;
     this.htmlelement.style.opacity = `${Math.abs(Math.sin((now / duration) * Math.PI))}`;
-    if (parseFloat(this.htmlelement.style.opacity) < 0.04) this.htmlelement.style.display = 'none';
+
+    // ! FIXME: this is a hack to remove the coin from the game
+    if (parseFloat(this.htmlelement.style.opacity) < 0.04) {
+      this.htmlelement.style.display = 'none';
+      this.game.gameObjects = this.game.gameObjects.filter((obj) => obj !== this);
+    }
   }
 
   render(): void {

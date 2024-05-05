@@ -49,7 +49,7 @@ export class LuckyBox extends GameObject {
   collect(): void {
     if (this.isCollected) return;
 
-    const coin = new Coin(this.game, this.pos.x, this.pos.y + 60, 80);
+    const coin = new Coin(this.game, this.pos.x, this.pos.y, 48);
     this.game.gameObjects.push(coin);
     this.isCollected = true;
   }
