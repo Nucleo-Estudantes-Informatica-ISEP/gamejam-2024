@@ -20,6 +20,7 @@ export abstract class GameObject {
     this.htmlelement = document.createElement('img');
 
     this.htmlelement.src = this.sprite;
+    this.htmlelement.alt = 'sprite';
     this.htmlelement.style.position = 'absolute';
     this.htmlelement.style.width = `${this.width}px`;
     this.htmlelement.style.height = `${this.height}px`;

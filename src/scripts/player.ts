@@ -97,11 +97,11 @@ export class Player extends GameObject {
             if (o instanceof LuckyBox) {
               o.collect();
               if (this.game.luckyboxes.every((o) => o.isCollected)) {
-                // shake the screen and redirect to the snake game
                 document.body.style.animation = 'shake 1.5s';
 
                 setTimeout(() => {
                   window.location.href = '/snake';
+                  // this time is a little bit shorter than the shake animation to prevent some time gap
                 }, 1200);
               }
             }

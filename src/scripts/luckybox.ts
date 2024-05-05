@@ -1,3 +1,4 @@
+import { Coin } from './coin';
 import type { Game } from './game';
 import { GameObject } from './gameobject';
 
@@ -12,7 +13,6 @@ const sprites = {
 };
 
 export class LuckyBox extends GameObject {
-  // collectedElement: HTMLElement | null = null;
   isCollected: boolean = false;
 
   constructor(game: Game, x: number, y: number, size: number) {
@@ -47,7 +47,10 @@ export class LuckyBox extends GameObject {
   }
 
   collect(): void {
+    if (this.isCollected) return;
+
+    const coin = new Coin(this.game, this.pos.x, this.pos.y + 60, 80);
+    this.game.gameObjects.push(coin);
     this.isCollected = true;
-    // TODO: collect animation + coin
   }
 }

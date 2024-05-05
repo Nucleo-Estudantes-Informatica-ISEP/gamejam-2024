@@ -7,7 +7,6 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
         retro: ['Autom', 'sans-serif'],
         'retro-numbers': ['Eight Bit Dragon', 'sans-serif'],
-        good__times: ['Good Times', 'Arial', 'sans-serif'],
         misterPixel: ['MisterPixel', 'sans-serif']
       },
       colors: {
@@ -21,7 +20,7 @@ module.exports = {
         gold: '#ffd700',
         red: '#d70014',
         'neon-yellow': '#DFFF00',
-        'persian-indigo': '#3d1080',
+        'persian-indigo': '#3d1080'
       },
       animation: {
         'bounce-slow': 'bounce 1.5s ease-in-out infinite',

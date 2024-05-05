@@ -14,14 +14,14 @@ export class Game {
   isScrolling: boolean = false; // chromium fix again
   parentElement: HTMLElement;
   luckyboxes: LuckyBox[] = [];
-  
+
   constructor(parent: HTMLElement) {
     this.parentElement = parent;
-    
+
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
 
     this.input = new InputState();
-    
+
     this.player = new Player(this, window.innerWidth / 10, 0, 96);
     this.luckyboxes = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
@@ -30,7 +30,6 @@ export class Game {
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2.5, 520, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 4.5, 520, 80)
     ];
-
     this.gameObjects.push(...this.luckyboxes);
 
     window.addEventListener('scrollend', () => (this.isScrolling = false));
