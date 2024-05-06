@@ -1,7 +1,7 @@
-import type { Game } from './game';
-import { GameObject } from './gameobject';
-import { LuckyBox } from './luckybox';
-import type { Point } from './point';
+import type { Game } from './Game';
+import { GameObject } from './GameObject';
+import { LuckyBox } from './LuckyBox';
+import type { Point } from './Point';
 import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
 
 const sprites = {
@@ -26,7 +26,7 @@ export class Player extends GameObject {
   jumpPower: number = 1.9;
 
   constructor(game: Game, x: number, y: number, size: number) {
-    super(game, x, y, size, size, sprites.still);
+    super(game, x, y, size, size, sprites.still, true, 50);
     this.direction = 1;
 
     this.htmlelement.style.cursor = 'pointer';
@@ -94,9 +94,15 @@ export class Player extends GameObject {
           if (this.velocity.y > 0) {
             this.velocity.y = 0;
             this.pos.y = o.pos.y - this.height - 4;
+
             if (o instanceof LuckyBox) {
               o.collect();
-              if (this.game.luckyboxes.every((o) => o.isCollected)) {
+
+              if (
+                this.game.gameObjects
+                  .filter((o) => o instanceof LuckyBox)
+                  .every((o) => (o as LuckyBox).isCollected)
+              ) {
                 document.body.style.animation = 'shake 1.5s';
 
                 setTimeout(() => {

@@ -1,5 +1,5 @@
-import type { Game } from './game';
-import { InputHandler } from './inputhandler';
+import type { Game } from './Game';
+import { InputHandler } from './InputHandler';
 
 export class KeyboardHandler extends InputHandler {
   private handleInput: (event: KeyboardEvent, state: boolean) => any;

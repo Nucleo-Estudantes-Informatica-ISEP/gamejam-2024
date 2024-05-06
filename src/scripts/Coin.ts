@@ -1,5 +1,5 @@
-import type { Game } from './game';
-import { GameObject } from './gameobject';
+import type { Game } from './Game';
+import { GameObject } from './GameObject';
 
 const sprites = [
   '/sprites/coin/default-0.png',
@@ -10,7 +10,7 @@ const sprites = [
 
 export class Coin extends GameObject {
   constructor(game: Game, x: number, y: number, size: number) {
-    super(game, x, y, size, size, sprites[1]);
+    super(game, x, y, size, size, sprites[1], false);
 
     if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
     else this.htmlelement.style.display = 'block';

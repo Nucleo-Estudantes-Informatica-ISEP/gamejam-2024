@@ -1,4 +1,4 @@
-import type { Game } from './game';
+import type { Game } from './Game';
 
 export abstract class InputHandler {
   game: Game;
@@ -6,6 +6,6 @@ export abstract class InputHandler {
   constructor(game: Game) {
     this.game = game;
   }
-  
+
   abstract unregister(): void;
 }

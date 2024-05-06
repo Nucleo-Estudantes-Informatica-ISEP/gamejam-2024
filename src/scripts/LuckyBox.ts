@@ -1,6 +1,6 @@
-import { Coin } from './coin';
-import type { Game } from './game';
-import { GameObject } from './gameobject';
+import { Coin } from './Coin';
+import type { Game } from './Game';
+import { GameObject } from './GameObject';
 
 const sprites = {
   default: [
@@ -16,7 +16,7 @@ export class LuckyBox extends GameObject {
   isCollected: boolean = false;
 
   constructor(game: Game, x: number, y: number, size: number) {
-    super(game, x, y, size, size, sprites.default[0]);
+    super(game, x, y, size, size, sprites.default[0], true);
 
     if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
     else this.htmlelement.style.display = 'block';
@@ -32,6 +32,7 @@ export class LuckyBox extends GameObject {
   update(delta: number): void {
     if (this.isCollected) {
       this.sprite = sprites.collected;
+      // animation.update(delta)
     } else {
       const now = performance.now();
       const prob = Math.floor((now / 150) % 6);
