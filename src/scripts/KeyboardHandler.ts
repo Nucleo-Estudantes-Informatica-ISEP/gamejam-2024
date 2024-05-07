@@ -1,5 +1,6 @@
 import type { Game } from './Game';
 import { InputHandler } from './InputHandler';
+import { LuckyBox } from './LuckyBox';
 
 export class KeyboardHandler extends InputHandler {
   private onKeyUpHandle: (e: KeyboardEvent) => any;
@@ -48,6 +49,13 @@ export class KeyboardHandler extends InputHandler {
         case 'Equal':
           event.preventDefault();
           this.game.end();
+          break;
+
+        case 'KeyR':
+          event.preventDefault();
+          this.game.gameObjects
+            .filter((o) => o instanceof LuckyBox)
+            .forEach((o) => ((o as LuckyBox).isCollected = false));
           break;
       }
     };
