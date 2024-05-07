@@ -32,14 +32,14 @@ export class Game {
     ];
 
     this.onScrollEndHandler = () => (this.isScrolling = false);
-
-    window.addEventListener('scrollend', this.onScrollEndHandler);
   }
 
   start() {
     [...this.players, ...this.gameObjects].forEach((o) => o.start());
 
     new LuckyBoxAnimation(this).start();
+
+    window.addEventListener('scrollend', this.onScrollEndHandler);
 
     let lastframe = 0;
 
@@ -72,6 +72,7 @@ export class Game {
 
     this.animations.forEach((o) => o.stop());
     [...this.players, ...this.gameObjects].forEach((o) => o.remove());
+    window.removeEventListener('scrollend', this.onScrollEndHandler);
     console.log('Game ended.');
   }
 
