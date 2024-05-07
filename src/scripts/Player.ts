@@ -1,5 +1,7 @@
+import type { Animation } from './Animation';
 import type { Game } from './Game';
 import { GameObject } from './GameObject';
+import { InactiveJumpAnimation } from './InactiveJumpAnimation';
 import { LuckyBox } from './LuckyBox';
 import type { Point } from './Point';
 import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
@@ -24,6 +26,10 @@ export class Player extends GameObject {
   isMoving: boolean = false;
   speed: number = 0.4;
   jumpPower: number = 1.9;
+  hasMoved: boolean;
+
+  private onClickHandler: (e: Event) => any;
+  private onResizeHandler: (e: Event) => any;
 
   constructor(game: Game, x: number, y: number, size: number) {
     super(game, x, y, size, size, sprites.still, true, 50);
@@ -31,14 +37,22 @@ export class Player extends GameObject {
 
     this.htmlelement.style.cursor = 'pointer';
 
-    this.htmlelement.addEventListener('click', () => this.jump());
+    new InactiveJumpAnimation(this.game, this).start();
 
-    window.addEventListener('resize', () => {
+    this.onClickHandler = () => {
+      this.jump();
+      this.hasMoved = true;
+    };
+
+    this.onResizeHandler = () => {
       const screenWidth = document.documentElement.clientWidth;
       if (this.pos.x + this.width >= screenWidth) {
         this.pos = this.initialPos;
       }
-    });
+    };
+
+    this.htmlelement.addEventListener('click', this.onClickHandler);
+    window.addEventListener('resize', this.onResizeHandler);
   }
 
   update(delta: number): void {
@@ -59,6 +73,8 @@ export class Player extends GameObject {
           this.game.player.pos.x = o.pos.x + o.width + 1;
         }
       });
+
+      this.hasMoved = true;
     }
 
     if (inputState.right) {
@@ -76,13 +92,18 @@ export class Player extends GameObject {
           this.game.player.pos.x = o.pos.x - this.game.player.width - 1;
         }
       });
+
+      this.hasMoved = true;
     }
 
     if (inputState.left && inputState.right) {
       this.game.player.isMoving = false;
     }
 
-    if (inputState.up) this.jump();
+    if (inputState.up) {
+      this.jump();
+      this.hasMoved = true;
+    }
 
     if (!this.isOnGround) {
       this.velocity.y -= this.game.gravity * delta;
@@ -103,12 +124,7 @@ export class Player extends GameObject {
                   .filter((o) => o instanceof LuckyBox)
                   .every((o) => (o as LuckyBox).isCollected)
               ) {
-                document.body.style.animation = 'shake 1.5s';
-
-                setTimeout(() => {
-                  window.location.href = '/snake';
-                  // this time is a little bit shorter than the shake animation to prevent some time gap
-                }, 1200);
+                this.game.snake();
               }
             }
           } else {
@@ -162,6 +178,11 @@ export class Player extends GameObject {
     this.htmlelement.style.bottom = `${this.pos.y}px`;
     this.htmlelement.style.transform = `scale(${this.direction}, 1)`;
     if (this.htmlelement.src !== this.sprite) this.htmlelement.src = this.sprite;
+  }
+
+  unregister(): void {
+    this.htmlelement.removeEventListener('click', this.onClickHandler);
+    window.removeEventListener('resize', this.onResizeHandler);
   }
 
   jump() {

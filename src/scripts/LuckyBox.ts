@@ -1,43 +1,38 @@
-import { Coin } from './Coin';
+import { CollectAnimation } from './CollectAnimation';
 import type { Game } from './Game';
 import { GameObject } from './GameObject';
 
 const sprites = {
-  default: [
-    '/sprites/luckybox/default-0.png',
-    '/sprites/luckybox/default-1.png',
-    '/sprites/luckybox/default-2.png',
-    '/sprites/luckybox/default-3.png'
-  ],
+  default: '/sprites/luckybox/default-0.png',
   collected: '/sprites/luckybox/collected.webp'
 };
 
 export class LuckyBox extends GameObject {
   isCollected: boolean = false;
 
+  private onResizeHandler: (event: Event) => any;
+
   constructor(game: Game, x: number, y: number, size: number) {
-    super(game, x, y, size, size, sprites.default[0], true);
+    super(game, x, y, size, size, sprites.default, true);
 
     if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
     else this.htmlelement.style.display = 'block';
 
-    window.addEventListener('resize', () => {
+    this.onResizeHandler = () => {
       // TODO move luckybox if out of view
 
       if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
       else this.htmlelement.style.display = 'block';
-    });
+    };
+
+    window.addEventListener('resize', this.onResizeHandler);
   }
 
   update(delta: number): void {
     if (this.isCollected) {
       this.sprite = sprites.collected;
-      // animation.update(delta)
     } else {
-      const now = performance.now();
-      const prob = Math.floor((now / 150) % 6);
-      const i = prob < 3 ? 0 : prob === 5 ? 1 : prob - 2;
-      this.sprite = sprites.default[i];
+      this.sprite = sprites.default; // animations are processed after game objects
     }
   }
 
@@ -47,11 +42,14 @@ export class LuckyBox extends GameObject {
     if (this.htmlelement.src !== this.sprite) this.htmlelement.src = this.sprite;
   }
 
+  unregister(): void {
+    window.removeEventListener('resize', this.onResizeHandler);
+  }
+
   collect(): void {
     if (this.isCollected) return;
-
-    const coin = new Coin(this.game, this.pos.x, this.pos.y, 48);
-    this.game.gameObjects.push(coin);
     this.isCollected = true;
+
+    new CollectAnimation(this.game, this).start();
   }
 }

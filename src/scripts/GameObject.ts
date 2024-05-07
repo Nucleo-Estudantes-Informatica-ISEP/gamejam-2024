@@ -49,6 +49,17 @@ export abstract class GameObject {
     };
   }
 
+  start(): void {
+    this.game.parentElement.appendChild(this.htmlelement);
+  }
+
+  remove(): void {
+    this.unregister();
+    this.game.parentElement.removeChild(this.htmlelement);
+    this.game.gameObjects = this.game.gameObjects.filter((o) => o !== this);
+  }
+
   abstract update(delta: number): void;
   abstract render(): void;
+  abstract unregister(): void;
 }
