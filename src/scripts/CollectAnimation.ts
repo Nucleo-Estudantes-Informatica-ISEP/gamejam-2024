@@ -17,7 +17,7 @@ const coinAnimation = {
 
 const boxAnimation = {
   duration: 250,
-  jumpDistance: 8
+  jumpDistance: 12
 };
 
 export class CollectAnimation extends Animation {
