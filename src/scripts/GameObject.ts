@@ -51,6 +51,7 @@ export abstract class GameObject {
 
   start(): void {
     this.game.parentElement.appendChild(this.htmlelement);
+    this.register();
   }
 
   remove(): void {
@@ -61,5 +62,6 @@ export abstract class GameObject {
 
   abstract update(delta: number): void;
   abstract render(): void;
+  abstract register(): void;
   abstract unregister(): void;
 }

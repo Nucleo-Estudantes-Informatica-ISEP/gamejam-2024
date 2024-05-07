@@ -1,10 +1,10 @@
-import type { Game } from './Game';
+import type { Player } from './Player';
 
 export abstract class InputHandler {
-  game: Game;
+  target: Player;
 
-  constructor(game: Game) {
-    this.game = game;
+  constructor(target: Player) {
+    this.target = target;
   }
 
   abstract unregister(): void;

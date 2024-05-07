@@ -1,16 +1,16 @@
-import type { Game } from './Game';
 import { InputHandler } from './InputHandler';
 import { LuckyBox } from './LuckyBox';
+import type { Player } from './Player';
 
 export class KeyboardHandler extends InputHandler {
   private onKeyUpHandle: (e: KeyboardEvent) => any;
   private onKeyDownHandle: (e: KeyboardEvent) => any;
 
-  constructor(game: Game) {
-    super(game);
+  constructor(target: Player) {
+    super(target);
 
     const handleInput = (event: KeyboardEvent, state: boolean) => {
-      const inputState = this.game.input;
+      const inputState = this.target.input;
       switch (event.code) {
         case 'ArrowLeft':
         case 'KeyA':
@@ -48,12 +48,12 @@ export class KeyboardHandler extends InputHandler {
 
         case 'Equal':
           event.preventDefault();
-          this.game.end();
+          this.target.game.end();
           break;
 
         case 'KeyR':
           event.preventDefault();
-          this.game.gameObjects
+          this.target.game.gameObjects
             .filter((o) => o instanceof LuckyBox)
             .forEach((o) => ((o as LuckyBox).isCollected = false));
           break;

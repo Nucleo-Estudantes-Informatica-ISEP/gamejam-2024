@@ -16,19 +16,21 @@ export class Coin extends GameObject {
       if (window.innerWidth < 768) this.htmlelement.style.display = 'none';
       else this.htmlelement.style.display = 'block';
     };
-
-    window.addEventListener('resize', this.onResizeHandler);
   }
 
   update(delta: number): void {}
-
-  unregister(): void {
-    window.removeEventListener('resize', this.onResizeHandler);
-  }
 
   render(): void {
     this.htmlelement.style.left = `${this.pos.x}px`;
     this.htmlelement.style.bottom = `${this.pos.y}px`;
     if (this.htmlelement.src !== this.sprite) this.htmlelement.src = this.sprite;
+  }
+
+  register(): void {
+    window.addEventListener('resize', this.onResizeHandler);
+  }
+
+  unregister(): void {
+    window.removeEventListener('resize', this.onResizeHandler);
   }
 }

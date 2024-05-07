@@ -1,7 +1,8 @@
-import type { Animation } from './Animation';
 import type { Game } from './Game';
 import { GameObject } from './GameObject';
 import { InactiveJumpAnimation } from './InactiveJumpAnimation';
+import { InputState } from './InputState';
+import { KeyboardHandler } from './KeyboardHandler';
 import { LuckyBox } from './LuckyBox';
 import type { Point } from './Point';
 import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
@@ -27,6 +28,7 @@ export class Player extends GameObject {
   speed: number = 0.4;
   jumpPower: number = 1.9;
   hasMoved: boolean;
+  input: InputState;
 
   private onClickHandler: (e: Event) => any;
   private onResizeHandler: (e: Event) => any;
@@ -37,7 +39,7 @@ export class Player extends GameObject {
 
     this.htmlelement.style.cursor = 'pointer';
 
-    new InactiveJumpAnimation(this.game, this).start();
+    this.input = new InputState();
 
     this.onClickHandler = () => {
       this.jump();
@@ -50,57 +52,52 @@ export class Player extends GameObject {
         this.pos = this.initialPos;
       }
     };
-
-    this.htmlelement.addEventListener('click', this.onClickHandler);
-    window.addEventListener('resize', this.onResizeHandler);
   }
 
   update(delta: number): void {
     this.isMoving = false;
 
-    const inputState = this.game.input;
-
-    if (inputState.left) {
-      let posX = this.game.player.pos.x - this.game.player.speed * delta;
+    if (this.input.left) {
+      let posX = this.pos.x - this.speed * delta;
       if (posX < 0) posX = 0;
 
-      this.game.player.pos.x = posX;
-      this.game.player.direction = -1;
-      this.game.player.isMoving = true;
+      this.pos.x = posX;
+      this.direction = -1;
+      this.isMoving = true;
 
       this.game.gameObjects.forEach((o) => {
         if (checkCollision(this, o)) {
-          this.game.player.pos.x = o.pos.x + o.width + 1;
+          this.pos.x = o.pos.x + o.width + 1;
         }
       });
 
       this.hasMoved = true;
     }
 
-    if (inputState.right) {
+    if (this.input.right) {
       const screenWidth = document.documentElement.clientWidth;
-      const maxX = screenWidth - this.game.player.width;
-      let posX = this.game.player.pos.x + this.game.player.speed * delta;
+      const maxX = screenWidth - this.width;
+      let posX = this.pos.x + this.speed * delta;
       if (posX > maxX) posX = maxX;
 
-      this.game.player.pos.x = posX;
-      this.game.player.direction = 1;
-      this.game.player.isMoving = true;
+      this.pos.x = posX;
+      this.direction = 1;
+      this.isMoving = true;
 
       this.game.gameObjects.forEach((o) => {
         if (checkCollision(this, o)) {
-          this.game.player.pos.x = o.pos.x - this.game.player.width - 1;
+          this.pos.x = o.pos.x - this.width - 1;
         }
       });
 
       this.hasMoved = true;
     }
 
-    if (inputState.left && inputState.right) {
-      this.game.player.isMoving = false;
+    if (this.input.left && this.input.right) {
+      this.isMoving = false;
     }
 
-    if (inputState.up) {
+    if (this.input.up) {
       this.jump();
       this.hasMoved = true;
     }
@@ -143,9 +140,9 @@ export class Player extends GameObject {
       this.isOnGround = true;
     }
 
-    this.isDucking = inputState.down;
+    this.isDucking = this.input.down;
 
-    if (inputState.dev1) this.isOnGround = true;
+    if (this.input.dev1) this.isOnGround = true;
 
     if (!this.isOnGround) {
       this.sprite = sprites.jumping;
@@ -178,6 +175,14 @@ export class Player extends GameObject {
     this.htmlelement.style.bottom = `${this.pos.y}px`;
     this.htmlelement.style.transform = `scale(${this.direction}, 1)`;
     if (this.htmlelement.src !== this.sprite) this.htmlelement.src = this.sprite;
+  }
+
+  register(): void {
+    this.game.inputHandlers.push(new KeyboardHandler(this));
+    new InactiveJumpAnimation(this.game, this).start();
+
+    this.htmlelement.addEventListener('click', this.onClickHandler);
+    window.addEventListener('resize', this.onResizeHandler);
   }
 
   unregister(): void {
