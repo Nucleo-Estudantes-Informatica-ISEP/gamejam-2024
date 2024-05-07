@@ -1,6 +1,6 @@
 import type { Animation } from './Animation';
 import type { GameObject } from './GameObject';
-import type { InputHandler } from './InputHandler';
+import { KeyboardHandler } from './KeyboardHandler';
 import { LuckyBox } from './LuckyBox';
 import { LuckyBoxAnimation } from './LuckyBoxAnimation';
 import { Player } from './Player';
@@ -11,7 +11,6 @@ export class Game {
   players: Player[] = [];
   gameObjects: GameObject[] = [];
   animations: Animation[] = [];
-  inputHandlers: InputHandler[] = [];
   gravity: number = GRAVITY;
   isScrolling: boolean = false; // chromium fix again
   parentElement: HTMLElement;
@@ -22,7 +21,7 @@ export class Game {
   constructor(parent: HTMLElement) {
     this.parentElement = parent;
 
-    this.players = [new Player(this, window.innerWidth / 10, 0, 96)];
+    this.players = [new Player(this, window.innerWidth / 10, 0, 96, new KeyboardHandler())];
 
     this.gameObjects = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
@@ -71,7 +70,6 @@ export class Game {
     if (this.ended) return;
     this.ended = true;
 
-    this.inputHandlers.forEach((o) => o.unregister());
     this.animations.forEach((o) => o.stop());
     [...this.players, ...this.gameObjects].forEach((o) => o.remove());
     console.log('Game ended.');

@@ -1,8 +1,8 @@
 import type { Game } from './Game';
 import { GameObject } from './GameObject';
 import { InactiveJumpAnimation } from './InactiveJumpAnimation';
+import type { InputHandler } from './InputHandler';
 import { InputState } from './InputState';
-import { KeyboardHandler } from './KeyboardHandler';
 import { LuckyBox } from './LuckyBox';
 import type { Point } from './Point';
 import { checkCollision, checkIsGrounded, totalDocumentHeight } from './utils';
@@ -18,6 +18,8 @@ const sprites = {
 };
 
 const viewThreshold = 50;
+const speed = 0.4;
+const jumpPower = 1.9;
 
 export class Player extends GameObject {
   direction: number;
@@ -25,21 +27,23 @@ export class Player extends GameObject {
   isDucking: boolean = false;
   isOnGround: boolean = true;
   isMoving: boolean = false;
-  speed: number = 0.4;
-  jumpPower: number = 1.9;
+  speed: number = speed;
+  jumpPower: number = jumpPower;
   hasMoved: boolean;
   input: InputState;
+  inputHandlers: InputHandler[] = [];
 
   private onClickHandler: (e: Event) => any;
   private onResizeHandler: (e: Event) => any;
 
-  constructor(game: Game, x: number, y: number, size: number) {
+  constructor(game: Game, x: number, y: number, size: number, inputHandler: InputHandler) {
     super(game, x, y, size, size, sprites.still, true, 50);
     this.direction = 1;
 
     this.htmlelement.style.cursor = 'pointer';
 
     this.input = new InputState();
+    this.inputHandlers.push(inputHandler);
 
     this.onClickHandler = () => {
       this.jump();
@@ -178,7 +182,7 @@ export class Player extends GameObject {
   }
 
   register(): void {
-    this.game.inputHandlers.push(new KeyboardHandler(this));
+    this.inputHandlers.forEach((o) => o.register(this));
     new InactiveJumpAnimation(this.game, this).start();
 
     this.htmlelement.addEventListener('click', this.onClickHandler);
@@ -186,6 +190,7 @@ export class Player extends GameObject {
   }
 
   unregister(): void {
+    this.inputHandlers.forEach((o) => o.unregister());
     this.htmlelement.removeEventListener('click', this.onClickHandler);
     window.removeEventListener('resize', this.onResizeHandler);
   }
@@ -195,5 +200,10 @@ export class Player extends GameObject {
       this.isOnGround = false;
       this.velocity.y = this.jumpPower;
     }
+  }
+
+  addInputHandler(inputHandler: InputHandler): void {
+    this.inputHandlers.push(inputHandler);
+    inputHandler.register(this);
   }
 }

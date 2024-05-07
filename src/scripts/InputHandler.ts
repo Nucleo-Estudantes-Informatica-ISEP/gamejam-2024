@@ -1,11 +1,6 @@
 import type { Player } from './Player';
 
 export abstract class InputHandler {
-  target: Player;
-
-  constructor(target: Player) {
-    this.target = target;
-  }
-
+  abstract register(target: Player): void;
   abstract unregister(): void;
 }
