@@ -1,4 +1,4 @@
-export const LOCATION_NOT_DEFINED: string = 'undefined';
+export const LOCATION_NOT_DEFINED: string = '500 Not defined';
 
 type GamejamEvent = {
   startTime: string;
