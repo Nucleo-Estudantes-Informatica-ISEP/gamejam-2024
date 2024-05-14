@@ -1,5 +1,12 @@
-import { Game } from './game';
+import { Game } from './Game';
 
-const game = new Game();
+function main() {
+  const parent = document.getElementById('footer');
+  if (!parent) return;
 
-game.start();
+  const game = new Game(parent);
+
+  game.start();
+}
+
+main();
