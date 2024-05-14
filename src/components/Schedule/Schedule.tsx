@@ -43,7 +43,7 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
             <tr className="border-b-2 border-gray-500">
               <th className="w-1/3 py-4 px-4 text-left">Hora</th>
               <th className="py-4 text-left">Atividade</th>
-              <th className="w-1/4 py-4 text-right">Sala</th>
+              <th className="w-1/4 py-4 text-left">Sala</th>
             </tr>
           </thead>
           <tbody>
@@ -51,11 +51,9 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
               const { startTime, description, location } = event;
               return (
                 <tr className="border-b-2 border-gray-500 h-24" key={index}>
-                  <td className="py-4 px-4 text-xl md:text-2xl lg:text-3xl">{startTime}</td>
-                  <td className="py-4 pr-4 text-xl md:text-2xl">{description}</td>
-                  <td className="py-4 text-xl text-right md:text-2xl">
-                    {location || LOCATION_NOT_DEFINED}
-                  </td>
+                  <td className="py-4 px-4 text-md md:text-2xl lg:text-3xl">{startTime}</td>
+                  <td className="py-4 pr-4 text-md md:text-2xl">{description}</td>
+                  <td className="py-4 text-md md:text-2xl">{location || LOCATION_NOT_DEFINED}</td>
                 </tr>
               );
             })}
