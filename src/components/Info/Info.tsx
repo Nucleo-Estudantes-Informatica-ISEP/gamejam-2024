@@ -23,12 +23,12 @@ const InfoContent: React.FC<InfoContentProps> = () => {
           }}>
           <h1
             style={{ textShadow: '#3d1080 2px 2px 0px, #424141 4px 4px 0px' }}
-            className="text-neon-yellow font-bold mt-20 uppercase text-5xl md:text-6xl">
+            className="text-neon-yellow font-extrabold mt-20 uppercase text-5xl md:text-6xl">
             {section.title}
           </h1>
           {section.items.map((item, itemIndex) => (
             <React.Fragment key={itemIndex}>
-              <span className="font-thin text-2xl md:text-3xl">{item}</span>
+              <span className="font-bold text-2xl md:text-3xl">{item}</span>
               <br />
             </React.Fragment>
           ))}
