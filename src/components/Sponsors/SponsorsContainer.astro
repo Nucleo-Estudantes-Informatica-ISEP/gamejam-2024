@@ -4,15 +4,13 @@ import Sponsor from './Sponsor.astro';
 ---
 
 <section
-  class="flex items-center gap-8 justify-center flex-col gap-y-3 text-white font-misterPixel uppercase w-full"
+  class="flex items-center gap-8 justify-center flex-col my-4 text-white font-misterPixel uppercase w-full"
 >
   <Header>Patrocinadores</Header>
   <div
     id="container"
-    class="flex flex-col md:grid md:grid-cols-2 gap-x-24 w-full gap-y-3 justify-items-center items-center lg:grid-cols-3 py-12 relative"
+    class="flex flex-col md:grid gap-x-24 w-full gap-y-3 justify-items-center items-center py-12 relative"
   >
     <Sponsor image={'/sponsors/gilt.png'} , ref={'https://gilt.isep.ipp.pt/'} />
-    <Sponsor image={'/sponsors/fabamaq.png'} , ref={'https://www.fabamaq.com/en'} />
-    <Sponsor image={'/sponsors/infinity_games.png'} , ref={'https://infinitygames.io/'} />
   </div>
 </section>
