@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { schedule as SCHEDULE } from '../../data/schedule';
+import { LOCATION_NOT_DEFINED, schedule as SCHEDULE } from '../../data/schedule';
 
 interface ScheduleContentProps {
   children?: React.ReactNode;
@@ -13,7 +13,7 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
   const isActiveDay = (day: number) => day == activeDay;
 
   const activeDayButtonStyles = (id: number) =>
-    ` ${isActiveDay(id) ? 'bg-[#50a32d]' : 'bg-[#4f99c8]'}`;
+    ` ${isActiveDay(id) ? 'bg-yellow text-black' : 'bg-[#4f99c8]'}`;
 
   const getActiveDayEvents = () => {
     return SCHEDULE.filter((day) => day.id === activeDay)[0].events;
@@ -21,7 +21,7 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
 
   return (
     <>
-      <div className="container flex w-full flex-col items-center justify-center">
+      <div className="m-auto container flex w-full flex-col items-center justify-center">
         <div className="flex w-full flex-col justify-center lg:flex-row">
           {SCHEDULE.map((day) => {
             const { id, date, name } = day;
@@ -43,17 +43,17 @@ const ScheduleContent: React.FC<ScheduleContentProps> = () => {
             <tr className="border-b-2 border-gray-500">
               <th className="w-1/3 py-4 px-4 text-left">Hora</th>
               <th className="py-4 text-left">Atividade</th>
+              <th className="w-1/4 py-4 text-left">Sala</th>
             </tr>
           </thead>
-
           <tbody>
             {getActiveDayEvents().map((event, index) => {
-              const { startTime, description } = event;
-
+              const { startTime, description, location } = event;
               return (
                 <tr className="border-b-2 border-gray-500 h-24" key={index}>
-                  <td className="py-4 px-4 text-xl md:text-2xl lg:text-3xl">{startTime}</td>
-                  <td className="py-4 pr-4 text-xl md:text-2xl">{description}</td>
+                  <td className="py-4 px-4 text-md md:text-2xl lg:text-3xl">{startTime}</td>
+                  <td className="py-4 pr-4 text-md md:text-2xl">{description}</td>
+                  <td className="py-4 text-md md:text-2xl">{location || LOCATION_NOT_DEFINED}</td>
                 </tr>
               );
             })}

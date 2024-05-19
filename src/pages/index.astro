@@ -3,12 +3,13 @@ import Container from '../layouts/Container.astro';
 import Layout from '../layouts/Layout.astro';
 
 import Hero from '../components/Hero';
+import ScheduleContainer from '../components/Schedule/ScheduleContainer.astro';
+import SponsorsContainer from '../components/Sponsors/SponsorsContainer.astro';
 
 import ComingSoon from '../components/Countdown/ComingSoon.astro';
 import Footer from '../components/Footer.astro';
 import InfoContainer from '../components/Info/InfoContainer.astro';
 import Join from '../components/Join/Join.astro';
-import Awards from '../components/Awards/AwardsContainer.astro';
 ---
 
 <section class="bg-bg-image bg-cover bg-center bg-fixed">
@@ -18,8 +19,9 @@ import Awards from '../components/Awards/AwardsContainer.astro';
   <InfoContainer />
   <Container>
     <ComingSoon />
+    <ScheduleContainer />
+    <SponsorsContainer />
     <Join />
-    <Awards />
   </Container>
   <Footer />
 </section>

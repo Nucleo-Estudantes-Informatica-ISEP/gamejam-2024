@@ -26,7 +26,7 @@ export class Game {
     this.gameObjects = [
       new LuckyBox(this, window.innerWidth - window.innerWidth / 8, 240, 80),
       new LuckyBox(this, 320, 240, 80),
-      new LuckyBox(this, window.innerWidth - window.innerWidth / 2, 240, 80),
+      new LuckyBox(this, window.innerWidth - window.innerWidth / 3, 240, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 2.5, 520, 80),
       new LuckyBox(this, window.innerWidth - window.innerWidth / 4.5, 520, 80)
     ];
