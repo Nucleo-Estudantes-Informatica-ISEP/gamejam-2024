@@ -183,7 +183,7 @@ export class Player extends GameObject {
 
   register(): void {
     this.inputHandlers.forEach((o) => o.register(this));
-    new InactiveJumpAnimation(this.game, this).start();
+    //new InactiveJumpAnimation(this.game, this).start();
 
     this.htmlelement.addEventListener('click', this.onClickHandler);
     window.addEventListener('resize', this.onResizeHandler);

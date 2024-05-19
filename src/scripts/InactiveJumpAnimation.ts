@@ -2,7 +2,7 @@ import { Animation } from './Animation';
 import type { Game } from './Game';
 import type { Player } from './Player';
 
-const frequency = 10 * 1000;
+const frequency = 10 * 5000;
 const offset = 5 * 1000;
 
 export class InactiveJumpAnimation extends Animation {
