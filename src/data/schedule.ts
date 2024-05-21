@@ -20,11 +20,11 @@ export const schedule: Day[] = [
     date: '24 maio',
     events: [
       {
-        startTime: '17:00h',
+        startTime: '18:00h',
         description: 'sessão de abertura'
       },
       {
-        startTime: '18:00h',
+        startTime: '18:30h',
         description: 'revelação do tema'
       },
       {
