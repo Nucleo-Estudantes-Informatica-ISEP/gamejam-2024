@@ -21,19 +21,23 @@ export const schedule: Day[] = [
     events: [
       {
         startTime: '18:00h',
-        description: 'sessão de abertura'
+        description: 'sessão de abertura',
+        location: 'B107'
       },
       {
         startTime: '18:30h',
-        description: 'revelação do tema'
+        description: 'revelação do tema',
+        location: 'B107'
       },
       {
         startTime: '19:00h',
-        description: 'jantar convívio'
+        description: 'jantar convívio',
+        location: 'Cantinha do ISEP'
       },
       {
         startTime: '20:00h',
-        description: 'início desenvolvimento'
+        description: 'início desenvolvimento',
+        location: 'B107-B109'      
       }
     ]
   },
@@ -44,11 +48,13 @@ export const schedule: Day[] = [
     events: [
       {
         startTime: '13:00h',
-        description: 'almoço'
+        description: 'almoço',
+        location: 'B103'
       },
       {
         startTime: '20:00h',
-        description: 'jantar'
+        description: 'jantar',
+        location: 'B103'
       }
     ]
   },
@@ -59,19 +65,23 @@ export const schedule: Day[] = [
     events: [
       {
         startTime: '13:00h',
-        description: 'almoço'
+        description: 'almoço',
+        location: 'B103'
       },
       {
         startTime: '16:00h',
-        description: 'submissão dos projetos'
+        description: 'submissão dos projetos',
+        location: 'B107'
       },
       {
         startTime: '16:30h',
-        description: 'pitch aos juris'
+        description: 'pitch aos juris',
+        location: 'B103'
       },
       {
         startTime: '18:30h',
-        description: 'entrega dos prémios'
+        description: 'entrega dos prémios',
+        location: 'B103'
       }
     ]
   }
