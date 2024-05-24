@@ -11,9 +11,9 @@ const targetDate = new Date('2024-05-24T18:00:00+01:00');
       src="/giphy1.gif"
       alt="Super mario mushroom"
     />
-    <div class="flex flex-row items-center justify-end font-retro my-16 text-white truncate">
+    <div class="flex flex-row items-center justify-end font-retro my-16 text-white text-center">
       <h1
-        class="text-3xl md:text-6xl lg:text-9xl tracking-tighter uppercase mr-2 md:mr-4 font-retro-numbers text-[#ffe24c] drop-shadow-whiteStrokeShadow"
+        class="text-3xl md:text-6xl lg:text-9xl tracking-tighter uppercase mr-2 md:mr-4 font-retro-numbers text-yellow drop-shadow-whiteStrokeShadow"
       >
         Coming soon
       </h1>
@@ -25,6 +25,6 @@ const targetDate = new Date('2024-05-24T18:00:00+01:00');
     />
   </div>
   <div class="w-full">
-    <Counter client:only targetDate={targetDate} />
+    <Counter client:only="react" targetDate={targetDate} />
   </div>
 </div>

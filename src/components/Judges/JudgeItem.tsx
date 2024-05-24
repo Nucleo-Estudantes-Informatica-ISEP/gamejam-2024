@@ -11,12 +11,12 @@ interface JudgeItemProps {
 }
 
 const JudgeItem: React.FC<JudgeItemProps> = ({
-                                               name,
-                                               image,
-                                               description,
-                                               isLeft,
-                                               overDescription
-                                             }: JudgeItemProps) => {
+  name,
+  image,
+  description,
+  isLeft,
+  overDescription
+}: JudgeItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isMobile = useIsMobile();
 
@@ -25,14 +25,10 @@ const JudgeItem: React.FC<JudgeItemProps> = ({
       <motion.div
         onMouseOver={() => {
           setIsHovered(true);
-        }
-      }
-        onMouseDown={
-          () => {
-            if (isMobile)
-              setIsHovered((cur) => (cur === true ? false : true))
-          }
-        }
+        }}
+        onMouseDown={() => {
+          if (isMobile) setIsHovered((cur) => (cur === true ? false : true));
+        }}
         onMouseLeave={() => {
           setIsHovered(false);
         }}
@@ -45,7 +41,7 @@ const JudgeItem: React.FC<JudgeItemProps> = ({
         viewport={{ once: true }}
         className={`bg-background-light max-w-xs w-full rounded-lg px-4 py-6 cursor-pointer z-0 duration-100 ease-in-out 
         ${isHovered && 'shadow-intense-shadow shadow-green-600'}`}>
-        <div className="flex flex-col items-start min-h-fit h-[24rem] gap-6">
+        <div className="flex flex-col items-start min-h-fit h-[26rem] gap-6">
           <img
             className="rounded-md w-full aspect-[23/25] justify-center items-center mx-auto "
             src={image}

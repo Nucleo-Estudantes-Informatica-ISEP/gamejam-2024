@@ -1,4 +1,5 @@
-import { AnimationDefinition, motion, useAnimationControls } from 'framer-motion';
+import type { AnimationDefinition } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 import { useState } from 'react';
 import useIsMobile from '../../hooks/useIsMobile';
 
@@ -37,7 +38,7 @@ const LuckyBox: React.FC = () => {
     <div className="relative">
       <motion.img
         className="h-16 w-16 lg:h-24 lg:w-24 brightness-90 cursor-pointer duration-100 aspect-square"
-        src={isCollected ? '/collected-luckybox.png' : '/luckybox.gif'}
+        src={isCollected ? '/sprites/luckybox/collected.webp' : '/luckybox.gif'}
         alt="Lucky Box"
         onClick={handleClick}
         animate={boxControls}

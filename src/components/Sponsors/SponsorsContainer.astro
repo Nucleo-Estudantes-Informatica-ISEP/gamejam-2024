@@ -1,0 +1,16 @@
+---
+import Header from '../Header.astro';
+import Sponsor from './Sponsor.astro';
+---
+
+<section
+  class="flex items-center gap-8 justify-center flex-col my-4 text-white font-misterPixel uppercase w-full"
+>
+  <Header>Patrocinadores</Header>
+  <div
+    id="container"
+    class="flex flex-col md:grid gap-x-24 w-full gap-y-3 justify-items-center items-center py-12 relative"
+  >
+    <Sponsor image={'/sponsors/gilt.png'} , ref={'https://gilt.isep.ipp.pt/'} />
+  </div>
+</section>

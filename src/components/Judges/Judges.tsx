@@ -1,37 +1,32 @@
 import JudgeItem from './JudgeItem';
 
 const Judges: React.FC = () => {
-
   return (
-    <section
-      className="w-full items-center justify-around md:justify-around gap-y-24 md:gap-x-6 flex flex-col md:flex-row z-0">
+    <section className="w-full items-center justify-between md:justify-around gap-y-24 md:gap-x-6 flex flex-col md:flex-row z-0">
       <JudgeItem
-        name="Carlos Vaz de Carvalho"
-        description="Professor Coordenador do DEI"
-        image="/judges/carlos.jpg"
+        name="Filipe de Faria Pacheco"
+        description="Professor Adjunto do DEI"
+        image="/judges/filipe-faria-pacheco.webp"
         isLeft={false}
-        overDescription="Professor Coordenador do DEI no Instituto Superior de Engenharia do Porto (ISEP). Diretor da Virtual Campus Lda, uma PME (pequena média empresa) dedicada à Aprendizagem Aprimorada por Tecnologia e “Serious Games”"
+        overDescription="Foi Vice-Diretor da unidade de Investigação CISTER - Research Centre in Real-Time and Embedded Computing Systems; 
+        Responsável pela unidade curricular de Tecnologias e Sistemas Multimédia do Mestrado em Engenharia Informática;
+        Có-Responsável pela unidade curricular de Complementos de Sistemas Gráficos do Mestrado em Engenharia Informática;
+        Docente da unidade curricular de Sistemas Gráficos e Interação da Licenciatura em Engenharia Informática;
+        Responsável pelas duas primeiras unidades curriculares integradoras do Mestrado em Engenharia de Sistemas Computacionais Críticos"
       />
       <JudgeItem
-        name="Dulce Mota"
-        description="Professora e sub-diretora do DEI"
-        image="/judges/dulce.jpg"
+        name="Ana Barata"
+        description="Leading Researcher da GILT"
+        image="/judges/ana-barata.webp"
         isLeft={false}
-        overDescription="Doutorada em Engenharia Informática pela FEUP, é Professora no DEI do ISEP desde 1992. Subdiretora do DEI desde 2020. Suas áreas de pesquisa incluem Sistemas de Recomendação e Ensino à Distância."
+        overDescription="Professora no ISEP desde 2001, doutorada na área das Ciências da Comunicação - Audiovisual e Artes dos Media Interativos, pela Faculdade de Ciências Humanas e Sociais da Universidade Nova de Lisboa (2014), tem sido responsável por unidades curriculares relacionadas com a linguagem, a comunicação e a gestão de projetos, e co-orientadora de várias teses de mestrado. As artes digitais e urbanas, os media interativos e as tecnologias da comunicação, e o papel da cultura e das artes na educação e na sociedade são as suas principais paixões de investigação."
       />
       <JudgeItem
-        name="Marílio Cardoso"
-        description="Professor Adjunto e sub-diretor do DEI"
-        image="/judges/marilio.jpeg"
+        name="Henrique"
+        description="Crítico de jogos na Meus Jogos"
+        image="/judges/henrique.webp"
         isLeft={true}
-        overDescription="Licenciado em Engenharia Eletrotécnica. Experiência em eficiência energética e sistemas educativos inovadores. Principais interesses: Aprendizado de programação, sistemas educacionais inovadores e soluções centradas no ensino de ciência da computação e multimedia."
-      />
-      <JudgeItem
-        name="Gonçalo Pinto"
-        description="Streamer na Twitch"
-        image="/judges/gonçalo_pinto.jpeg"
-        isLeft={true}
-        overDescription="O meu nome é Gonçalo, tenho 19 anos. Desde o dia 24/01 que estou full-time streamer pois suspendi a matrícula da faculdade para lutar pelo meu sonho de criança, tendo começado a streamar diariamente desde 24/07."
+        overDescription="Eu sou o Henrique, tenho 22 anos e sou apaixonado por videojogos desde que me lembro. Desde agosto de 2022 faço parte da equipa de autores do Meus Jogos, um site português de críticas e notícias gaming, onde já publiquei mais de duas dezenas de artigos."
       />
     </section>
   );
