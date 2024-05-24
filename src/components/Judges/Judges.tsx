@@ -6,7 +6,7 @@ const Judges: React.FC = () => {
       <JudgeItem
         name="Filipe de Faria Pacheco"
         description="Professor Adjunto do DEI"
-        image="/judges/filipe-pacheco-new.png"
+        image="/judges/chad.png"
         isLeft={false}
         overDescription="Foi Vice-Diretor da unidade de Investigação CISTER - Research Centre in Real-Time and Embedded Computing Systems;
         Responsável pela unidade curricular de Tecnologias e Sistemas Multimédia do Mestrado em Engenharia Informática;
@@ -24,7 +24,7 @@ const Judges: React.FC = () => {
       <JudgeItem
         name="Henrique Adão"
         description="Crítico de jogos na Meus Jogos"
-        image="/judges/henrique-new.png"
+        image="/judges/osborn.png"
         isLeft={true}
         overDescription="Eu sou o Henrique, tenho 22 anos e sou apaixonado por videojogos desde que me lembro. Desde agosto de 2022 faço parte da equipa de autores do Meus Jogos, um site português de críticas e notícias gaming, onde já publiquei mais de duas dezenas de artigos."
       />
