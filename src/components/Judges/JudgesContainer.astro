@@ -1,0 +1,9 @@
+---
+import Judges from './Judges';
+import Header from '../Header.astro';
+---
+
+<section class="flex items-center gap-12 flex-col text-white font-misterPixel uppercase">
+  <Header>Júri</Header>
+  <Judges client:only />
+</section>
