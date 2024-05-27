@@ -35,5 +35,10 @@ export const acknowledgements: Sponsor[] = [
     name: 'Red Bull',
     image: '/sponsors/red-bull.png',
     link: 'https://www.redbull.com/pt-pt/'
+  },
+  {
+    name: 'ISEP',
+    image: '/sponsors/isep.png',
+    link: 'https://www.isep.ipp.pt/'
   }
 ];
